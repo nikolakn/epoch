@@ -9,14 +9,14 @@ import (
 
 func main() {
 
-	dateTime := time.Date(0, 1, 1, 0, 0, 0, 0, time.UTC)
+	dateTime := time.Date(0, 1, 1, 12, 0, 0, 0, time.UTC)
 
 	//dateTime2 := time.Date(-1500, 1, 31, 0, 0, 0, 0, time.UTC)
 
 	doc := epoch.NewDocument()
 	e1 := doc.AddEpochWithData(dateTime, 930, "Adam")
 	e2 := doc.AddRelativeEpochWithData(e1, epoch.JDYear*130, epoch.JDYear*912, "Seth")
-	e4 := doc.AddRelativeEpochWithData(e2, epoch.JDYear*105, epoch.JDYear*905, "enosh")
+	e4 := doc.AddRelativeEpochWithData(e2, epoch.JDYear*105, epoch.JDYear*905, "Enosh")
 	e5 := doc.AddRelativeEpochWithData(e4, epoch.JDYear*90, epoch.JDYear*910, "Kenon")
 	e6 := doc.AddRelativeEpochWithData(e5, epoch.JDYear*70, epoch.JDYear*895, "Mahalalel")
 	e7 := doc.AddRelativeEpochWithData(e6, epoch.JDYear*65, epoch.JDYear*962, "Jared")

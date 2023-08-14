@@ -1,7 +1,7 @@
 package epoch
 
 const (
-	JDYear     = 365.25       // days
+	JDYear     = 365.2425     // days
 	JDHalfYear = JDYear / 2.0 // days
 	JDCentury  = 36525        // days
 )
@@ -22,6 +22,8 @@ type EventStruct struct {
 	Title       string
 	isRelative  bool
 	Parent      Event
+	Type        int
+	Importance  int
 }
 
 type EpochStruct struct {

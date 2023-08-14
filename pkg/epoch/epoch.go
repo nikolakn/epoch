@@ -12,6 +12,8 @@ type Event interface {
 	GetTitle() string
 	IsRelative() bool
 	GetParent() Event
+	SetEnd(end float64)
+	GetDuration() float64
 }
 
 type EventStruct struct {
@@ -36,7 +38,11 @@ func (e EventStruct) GetStart() float64 {
 }
 
 func (e EpochStruct) GetStart() float64 {
-	return e.GetStart()
+	if e.isRelative {
+		sp := e.Parent.GetStart()
+		return sp + e.Start
+	}
+	return e.Start
 }
 
 func (e EventStruct) GetDescription() string {
@@ -44,7 +50,7 @@ func (e EventStruct) GetDescription() string {
 }
 
 func (e EpochStruct) GetDescription() string {
-	return e.GetDescription()
+	return e.Description
 }
 
 func (e EventStruct) GetTitle() string {
@@ -52,7 +58,7 @@ func (e EventStruct) GetTitle() string {
 }
 
 func (e EpochStruct) GetTitle() string {
-	return e.GetDescription()
+	return e.Title
 }
 
 func (e EventStruct) IsRelative() bool {
@@ -68,5 +74,21 @@ func (e EventStruct) GetParent() Event {
 }
 
 func (e EpochStruct) GetParent() Event {
-	return e.GetParent()
+	return e.Parent
+}
+
+func (e EventStruct) SetEnd(end float64) {
+	return
+}
+
+func (e EpochStruct) SetEnd(end float64) {
+	e.End = end
+}
+
+func (e EventStruct) GetDuration() float64 {
+	return 0
+}
+
+func (e EpochStruct) GetDuration() float64 {
+	return e.End
 }

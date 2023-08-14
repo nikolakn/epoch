@@ -65,9 +65,13 @@ func (doc Document) String() string {
 	text := ""
 	for _, e := range doc.Events {
 		time := jd.JDToTime(e.GetStart())
+		if e.IsRelative() {
+			text += fmt.Sprintf("--r %s\t%d-%d-%d\t%d:%d\t%s\n", e.GetParent().GetTitle(), time.Year(), time.Month(), time.Day(), time.Hour(), time.Minute(), e.GetTitle())
 
-		date := fmt.Sprintf("%d-%d-%d\t%d:%d\t%s\n", time.Year(), time.Month(), time.Day(), time.Hour(), time.Minute(), e.GetTitle())
-		text += date
+		} else {
+			text += fmt.Sprintf("%d-%d-%d\t%d:%d\t%s\n", time.Year(), time.Month(), time.Day(), time.Hour(), time.Minute(), e.GetTitle())
+
+		}
 	}
 	return text
 }

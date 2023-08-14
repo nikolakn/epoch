@@ -9,11 +9,13 @@ const (
 type Event interface {
 	GetStart() float64
 	GetDescription() string
+	GetTitle() string
 }
 
 type EventStruct struct {
 	Start       float64
 	Description string
+	Title       string
 	isRelative  bool
 	Parent      Event
 }
@@ -40,5 +42,13 @@ func (e EventStruct) GetDescription() string {
 }
 
 func (e EpochStruct) GetDescription() string {
+	return e.GetDescription()
+}
+
+func (e EventStruct) GetTitle() string {
+	return e.Title
+}
+
+func (e EpochStruct) GetTitle() string {
 	return e.GetDescription()
 }

@@ -25,11 +25,11 @@ func (doc *Document) AddEvent(e Event) Event {
 	return e
 }
 
-func (doc *Document) AddEventWithData(date time.Time, des string) Event {
+func (doc *Document) AddEventWithData(date time.Time, title string) Event {
 	julianDay := jd.TimeToJD(date)
 	e := EventStruct{
-		Start:       julianDay,
-		Description: des,
+		Start: julianDay,
+		Title: title,
 	}
 	doc.Events = append(doc.Events, e)
 	doc.docSort()
@@ -40,15 +40,15 @@ func (doc *Document) AddEventWithData(date time.Time, des string) Event {
 //
 // relative is how many days event is far from parent start
 
-func (doc *Document) AddRelativeEventWithData(parent Event, relative float64, des string) Event {
+func (doc *Document) AddRelativeEventWithData(parent Event, relative float64, title string) Event {
 	if parent == nil {
 		return nil
 	}
 	e := EventStruct{
-		Start:       relative,
-		Description: des,
-		Parent:      parent,
-		isRelative:  true,
+		Start:      relative,
+		Title:      title,
+		Parent:     parent,
+		isRelative: true,
 	}
 	doc.Events = append(doc.Events, e)
 	doc.docSort()
@@ -66,7 +66,7 @@ func (doc Document) String() string {
 	for _, e := range doc.Events {
 		time := jd.JDToTime(e.GetStart())
 
-		date := fmt.Sprintf("%d %d %d %s\n", time.Year(), time.Month(), time.Day(), e.GetDescription())
+		date := fmt.Sprintf("%d-%d-%d\t%d:%d\t%s\n", time.Year(), time.Month(), time.Day(), time.Hour(), time.Minute(), e.GetTitle())
 		text += date
 	}
 	return text

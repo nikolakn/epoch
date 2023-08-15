@@ -12,8 +12,8 @@ const (
 
 type Event interface {
 	GetStart() float64
-	IsRelative() bool
-	IsEndRelative() bool
+	Relative() bool
+	EndRelative() bool
 	GetParent() Event
 	SetEnd(end float64)
 	GetDuration() float64
@@ -21,28 +21,29 @@ type Event interface {
 }
 
 type EventStruct struct {
-	Id            int64
-	Start         float64
-	Description   string
-	Title         string
-	isRelative    bool
-	isEndRelative bool
-	Parent        Event
-	Type          int
-	Importance    int
-	Y             int
-	GPS           gps.GPS
-	url           string
+	Id            int     `json:"id"`
+	ParentId      int     `json:"parent_id"`
+	Start         float64 `json:"start"`
+	Description   string  `json:"Description"`
+	Title         string  `json:"titile"`
+	IsRelative    bool    `json:"relative"`
+	IsEndRelative bool    `json:"end_relative"`
+	Parent        Event   `json:"-"`
+	Type          int     `json:"type"`
+	Importance    int     `json:"importance"`
+	Y             int     `json:"y"`
+	GPS           gps.GPS `json:"gps"`
+	Url           string  `json:"url"`
 }
 
 type EpochStruct struct {
 	EventStruct
-	End float64
+	End float64 `json:"end"`
 }
 
 func (e *EventStruct) GetStart() float64 {
 
-	if e.isRelative {
+	if e.IsRelative {
 		sp := e.Parent.GetStart()
 		return sp + e.Start
 	}
@@ -50,27 +51,27 @@ func (e *EventStruct) GetStart() float64 {
 }
 
 func (e *EpochStruct) GetStart() float64 {
-	if e.isRelative {
+	if e.IsRelative {
 		sp := e.Parent.GetStart()
 		return sp + e.Start
 	}
 	return e.Start
 }
 
-func (e *EventStruct) IsRelative() bool {
-	return e.isRelative
+func (e *EventStruct) Relative() bool {
+	return e.IsRelative
 }
 
-func (e *EpochStruct) IsRelative() bool {
-	return e.isRelative
+func (e *EpochStruct) Relative() bool {
+	return e.IsRelative
 }
 
-func (e *EventStruct) IsEndRelative() bool {
-	return e.isEndRelative
+func (e *EventStruct) EndRelative() bool {
+	return e.IsEndRelative
 }
 
-func (e *EpochStruct) IsEndRelative() bool {
-	return e.isEndRelative
+func (e *EpochStruct) EndRelative() bool {
+	return e.IsEndRelative
 }
 
 func (e *EventStruct) GetParent() Event {

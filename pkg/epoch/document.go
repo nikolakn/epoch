@@ -41,7 +41,7 @@ func (doc *Document) AddEpochWithDataRelativeEnd(date time.Time, end float64, ti
 		EventStruct{
 			Start:         jd.TimeToJD(date),
 			Title:         title,
-			isEndRelative: true,
+			IsEndRelative: true,
 		},
 		end,
 	}
@@ -75,7 +75,7 @@ func (doc *Document) AddRelativeEventWithData(parent Event, relative float64, ti
 		Start:      relative,
 		Title:      title,
 		Parent:     parent,
-		isRelative: true,
+		IsRelative: true,
 	}
 	doc.Events = append(doc.Events, e)
 	doc.docSort()
@@ -88,12 +88,11 @@ func (doc *Document) AddRelativeEpochWithData(parent Event, relative float64, en
 	}
 	e := &EpochStruct{
 		EventStruct{
-			Start:         relative,
-			Description:   "",
-			Title:         title,
-			isRelative:    true,
-			Parent:        parent,
-			isEndRelative: true,
+			Start:       relative,
+			Description: "",
+			Title:       title,
+			IsRelative:  true,
+			Parent:      parent,
 		},
 		end,
 	}
@@ -124,7 +123,7 @@ func (doc *Document) SetRelativeEndDate(e Event, jd float64) Event {
 		return nil
 	}
 	e.SetEnd(jd)
-	e.GetEpoch().isEndRelative = true
+	e.GetEpoch().IsEndRelative = true
 	return e
 }
 
@@ -146,7 +145,7 @@ func (doc Document) String() string {
 	text := ""
 	for _, e := range doc.Events {
 		time := jd.JDToTime(e.GetStart())
-		if e.IsRelative() {
+		if e.Relative() {
 			text += fmt.Sprintf("--r %12s\t%d \t%12s", e.GetEpoch().Title, time.Year(), e.GetEpoch().Title) // time.Month(), time.Day(), time.Hour(), time.Minute(),
 
 		} else {
@@ -154,7 +153,7 @@ func (doc Document) String() string {
 
 		}
 		if e.GetDuration() > 0 {
-			if e.IsEndRelative() {
+			if e.EndRelative() {
 				text += fmt.Sprintf("\tduration: %6.0f godina", e.GetDuration()/JDYear)
 
 				time := jd.JDToTime(e.GetStart() + e.GetDuration())

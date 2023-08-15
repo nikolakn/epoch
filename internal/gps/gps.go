@@ -24,7 +24,8 @@ func (self Radians) Degrees() Degrees {
 }
 
 type GPS struct {
-	Latitude, Longitude Degrees
+	Latitude  Degrees `json:"latitude"`
+	Longitude Degrees `json:"longitude"`
 }
 
 func NewGPS(latitude, longitude Degrees) GPS {

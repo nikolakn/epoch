@@ -3,9 +3,17 @@ package main
 import (
 	"epoch/pkg/epoch"
 	"fmt"
+	"log"
+
+	cmd "epoch/command"
 )
 
 func main() {
+	file, print_olny, _ := cmd.Execute()
+	if file == "" {
+		log.Println("invalid file name")
+		return
+	}
 	po := epoch.PrintOptions{
 		Flags:    true,
 		YearOnly: false,
@@ -14,11 +22,9 @@ func main() {
 		GPS:      false,
 		Id:       true,
 	}
-	doc := epoch.NewDocument(po)
-	doc.LoadFromJson("test_data/test_ww2.json")
-	fmt.Println(doc)
-
-	doc.LoadFromJson("test_data/test.json")
-
-	fmt.Println(doc)
+	if print_olny {
+		doc := epoch.NewDocument(po)
+		doc.LoadFromJson(file)
+		fmt.Println(doc)
+	}
 }

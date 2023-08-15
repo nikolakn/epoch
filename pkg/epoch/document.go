@@ -5,6 +5,7 @@ import (
 	"sort"
 	"time"
 
+	"epoch/internal/gps"
 	jd "epoch/internal/julian"
 )
 
@@ -26,9 +27,8 @@ func (doc *Document) AddEvent(e Event) Event {
 }
 
 func (doc *Document) AddEventWithData(date time.Time, title string) Event {
-	julianDay := jd.TimeToJD(date)
-	e := EventStruct{
-		Start: julianDay,
+	e := &EventStruct{
+		Start: jd.TimeToJD(date),
 		Title: title,
 	}
 	doc.Events = append(doc.Events, e)
@@ -36,14 +36,27 @@ func (doc *Document) AddEventWithData(date time.Time, title string) Event {
 	return e
 }
 
-func (doc *Document) AddEpochWithData(date time.Time, end float64, title string) Event {
-	julianDay := jd.TimeToJD(date)
-	e := EpochStruct{
+func (doc *Document) AddEpochWithDataRelativeEnd(date time.Time, end float64, title string) Event {
+	e := &EpochStruct{
 		EventStruct{
-			Start: julianDay,
-			Title: title,
+			Start:         jd.TimeToJD(date),
+			Title:         title,
+			isEndRelative: true,
 		},
 		end,
+	}
+	doc.Events = append(doc.Events, e)
+	doc.docSort()
+	return e
+}
+
+func (doc *Document) AddEpochWithData(date time.Time, end time.Time, title string) Event {
+	e := &EpochStruct{
+		EventStruct{
+			Start: jd.TimeToJD(date),
+			Title: title,
+		},
+		jd.TimeToJD(end),
 	}
 	doc.Events = append(doc.Events, e)
 	doc.docSort()
@@ -58,7 +71,7 @@ func (doc *Document) AddRelativeEventWithData(parent Event, relative float64, ti
 	if parent == nil {
 		return nil
 	}
-	e := EventStruct{
+	e := &EventStruct{
 		Start:      relative,
 		Title:      title,
 		Parent:     parent,
@@ -73,13 +86,14 @@ func (doc *Document) AddRelativeEpochWithData(parent Event, relative float64, en
 	if parent == nil {
 		return nil
 	}
-	e := EpochStruct{
+	e := &EpochStruct{
 		EventStruct{
-			Start:       relative,
-			Description: "",
-			Title:       title,
-			isRelative:  true,
-			Parent:      parent,
+			Start:         relative,
+			Description:   "",
+			Title:         title,
+			isRelative:    true,
+			Parent:        parent,
+			isEndRelative: true,
 		},
 		end,
 	}
@@ -88,11 +102,37 @@ func (doc *Document) AddRelativeEpochWithData(parent Event, relative float64, en
 	return e
 }
 
-func (doc *Document) SetEndDate(e Event, end float64) Event {
+func (doc *Document) SetEndDate(e Event, end time.Time) Event {
 	if e == nil {
 		return nil
 	}
-	e.SetEnd(end)
+	julianDay := jd.TimeToJD(end)
+	e.SetEnd(julianDay)
+	return e
+}
+
+func (doc *Document) SetEndJD(e Event, jd float64) Event {
+	if e == nil {
+		return nil
+	}
+	e.SetEnd(jd)
+	return e
+}
+
+func (doc *Document) SetRelativeEndDate(e Event, jd float64) Event {
+	if e == nil {
+		return nil
+	}
+	e.SetEnd(jd)
+	e.GetEpoch().isEndRelative = true
+	return e
+}
+
+func (doc *Document) SetGPS(e Event, l1, l2 gps.Degrees) Event {
+	if e == nil {
+		return nil
+	}
+	e.SetGPS(gps.NewGPS(l1, l2))
 	return e
 }
 
@@ -107,14 +147,26 @@ func (doc Document) String() string {
 	for _, e := range doc.Events {
 		time := jd.JDToTime(e.GetStart())
 		if e.IsRelative() {
-			text += fmt.Sprintf("--r %12s\t%d-%d-%d %d:%d\t%12s", e.GetParent().GetTitle(), time.Year(), time.Month(), time.Day(), time.Hour(), time.Minute(), e.GetTitle())
+			text += fmt.Sprintf("--r %12s\t%d \t%12s", e.GetParent().GetTitle(), time.Year(), e.GetTitle()) // time.Month(), time.Day(), time.Hour(), time.Minute(),
 
 		} else {
-			text += fmt.Sprintf("%d-%d-%d %d:%d\t%15s", time.Year(), time.Month(), time.Day(), time.Hour(), time.Minute(), e.GetTitle())
+			text += fmt.Sprintf("%25s %d\t%12s", "", time.Year(), e.GetTitle()) //time.Month(), time.Day(), time.Hour(), time.Minute(),
 
 		}
 		if e.GetDuration() > 0 {
-			text += fmt.Sprintf("\tduration: %6.0f godina", e.GetDuration()/JDYear)
+			if e.IsEndRelative() {
+				text += fmt.Sprintf("\tduration: %6.0f godina", e.GetDuration()/JDYear)
+
+				time := jd.JDToTime(e.GetStart() + e.GetDuration())
+				text += fmt.Sprintf("\t| end %d", time.Year()) //, time.Month(), time.Day(), time.Hour(), time.Minute())
+
+			} else {
+				time := jd.JDToTime(e.GetDuration())
+				text += fmt.Sprintf("\t| end %d", time.Year()) //, time.Month(), time.Day(), time.Hour(), time.Minute()
+			}
+		}
+		if e.GetGPS().Latitude != 0 || e.GetGPS().Longitude != 0 {
+			text += fmt.Sprintf("%s", e.GetGPS())
 		}
 		text += "\n"
 	}

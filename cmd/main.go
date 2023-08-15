@@ -14,7 +14,7 @@ func main() {
 	//dateTime2 := time.Date(-1500, 1, 31, 0, 0, 0, 0, time.UTC)
 
 	doc := epoch.NewDocument()
-	e1 := doc.AddEpochWithData(dateTime, 930, "Adam")
+	e1 := doc.AddEpochWithDataRelativeEnd(dateTime, epoch.JDYear*930, "Adam")
 	e2 := doc.AddRelativeEpochWithData(e1, epoch.JDYear*130, epoch.JDYear*912, "Seth")
 	e4 := doc.AddRelativeEpochWithData(e2, epoch.JDYear*105, epoch.JDYear*905, "Enosh")
 	e5 := doc.AddRelativeEpochWithData(e4, epoch.JDYear*90, epoch.JDYear*910, "Kenon")
@@ -25,8 +25,8 @@ func main() {
 	e10 := doc.AddRelativeEpochWithData(e9, epoch.JDYear*187, epoch.JDYear*777, "Lamech")
 	e11 := doc.AddRelativeEpochWithData(e10, epoch.JDYear*182, epoch.JDYear*950, "Noah")
 
-	doc.AddRelativeEventWithData(e11, epoch.JDYear*600, "potop")
-
+	e12 := doc.AddRelativeEventWithData(e11, epoch.JDYear*600, "potop")
+	doc.SetGPS(e12, 45.45, 45.45)
 	fmt.Println(doc)
 
 }

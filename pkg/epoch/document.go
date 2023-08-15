@@ -1,7 +1,6 @@
 package epoch
 
 import (
-	"fmt"
 	"sort"
 	"time"
 
@@ -10,13 +9,15 @@ import (
 )
 
 type Document struct {
-	Events []Event
+	Events       []Event
+	printOptions PrintOptions
 }
 
-func NewDocument() *Document {
+func NewDocument(po PrintOptions) *Document {
 	doc := &Document{
 		Events: make([]Event, 0),
 	}
+	doc.printOptions = po
 	return doc
 }
 
@@ -139,36 +140,4 @@ func (doc *Document) docSort() {
 	sort.Slice(doc.Events, func(i, j int) bool {
 		return doc.Events[i].GetStart() < doc.Events[j].GetStart()
 	})
-}
-
-func (doc Document) String() string {
-	text := ""
-	for _, e := range doc.Events {
-		time := jd.JDToTime(e.GetStart())
-		if e.Relative() {
-			text += fmt.Sprintf("--r %12s\t%d \t%12s", e.GetEpoch().Title, time.Year(), e.GetEpoch().Title) // time.Month(), time.Day(), time.Hour(), time.Minute(),
-
-		} else {
-			text += fmt.Sprintf("%25s %d\t%12s", "", time.Year(), e.GetEpoch().Title) //time.Month(), time.Day(), time.Hour(), time.Minute(),
-
-		}
-		if e.GetDuration() > 0 {
-			if e.EndRelative() {
-				text += fmt.Sprintf("\tduration: %6.0f godina", e.GetDuration()/JDYear)
-
-				time := jd.JDToTime(e.GetStart() + e.GetDuration())
-				text += fmt.Sprintf("\t| end %d", time.Year()) //, time.Month(), time.Day(), time.Hour(), time.Minute())
-
-			} else {
-				time := jd.JDToTime(e.GetDuration())
-				text += fmt.Sprintf("\t| end %d", time.Year()) //, time.Month(), time.Day(), time.Hour(), time.Minute()
-			}
-		}
-		g := e.GetEpoch().GPS
-		if g.Latitude != 0 || g.Longitude != 0 {
-			text += fmt.Sprintf("%s", g)
-		}
-		text += "\n"
-	}
-	return text
 }

@@ -51,6 +51,6 @@ func HaversineDistance(one, two GPS) float64 {
 }
 
 func (g GPS) String() string {
-	t := fmt.Sprintf("\tgps: %f, %f", g.Latitude, g.Longitude)
+	t := fmt.Sprintf("gps: %f , %f", g.Latitude, g.Longitude)
 	return t
 }

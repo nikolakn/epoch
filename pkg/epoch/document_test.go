@@ -7,10 +7,17 @@ import (
 )
 
 func TestDocumetn(t *testing.T) {
-
+	po := PrintOptions{
+		Flags:    true,
+		YearOnly: true,
+		Time:     false,
+		Duration: false,
+		GPS:      true,
+		Id:       false,
+	}
 	dateTime := time.Date(0, 1, 1, 12, 0, 0, 0, time.UTC)
 
-	doc := NewDocument()
+	doc := NewDocument(po)
 	e1 := doc.AddEpochWithDataRelativeEnd(dateTime, JDYear*930, "Adam")
 	e2 := doc.AddRelativeEpochWithData(e1, JDYear*130, JDYear*912, "Seth")
 	e4 := doc.AddRelativeEpochWithData(e2, JDYear*105, JDYear*905, "Enosh")
@@ -26,4 +33,21 @@ func TestDocumetn(t *testing.T) {
 	doc.SetGPS(e12, 45.45, 45.45)
 	fmt.Println(doc)
 	doc.Savejson("../../test_data/test.json")
+}
+
+func TestDocumetn2(t *testing.T) {
+
+	po := PrintOptions{
+		Flags:    true,
+		YearOnly: true,
+		Time:     false,
+		Duration: false,
+		GPS:      true,
+		Id:       false,
+	}
+	doc := NewDocument(po)
+	doc.AddEpochWithData(time.Date(1939, 9, 1, 12, 0, 0, 0, time.UTC), time.Date(1945, 9, 2, 12, 0, 0, 0, time.UTC), "WWII")
+
+	fmt.Println(doc)
+	doc.Savejson("../../test_data/test_ww2.json")
 }

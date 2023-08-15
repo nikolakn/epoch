@@ -17,7 +17,7 @@ func TestDocumetn(t *testing.T) {
 	}
 	dateTime := time.Date(0, 1, 1, 12, 0, 0, 0, time.UTC)
 
-	doc := NewDocument(po)
+	doc := NewDocument(po, "")
 	e1 := doc.AddEpochWithDataRelativeEnd(dateTime, JDYear*930, "Adam")
 	e2 := doc.AddRelativeEpochWithData(e1, JDYear*130, JDYear*912, "Seth")
 	e4 := doc.AddRelativeEpochWithData(e2, JDYear*105, JDYear*905, "Enosh")
@@ -45,7 +45,7 @@ func TestDocumetn2(t *testing.T) {
 		GPS:      true,
 		Id:       false,
 	}
-	doc := NewDocument(po)
+	doc := NewDocument(po, "")
 	doc.AddEpochWithData(time.Date(1939, 9, 1, 12, 0, 0, 0, time.UTC), time.Date(1945, 9, 2, 12, 0, 0, 0, time.UTC), "WWII")
 
 	fmt.Println(doc)

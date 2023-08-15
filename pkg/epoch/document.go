@@ -11,13 +11,15 @@ import (
 type Document struct {
 	Events       []Event
 	printOptions PrintOptions
+	FileName     string
 }
 
-func NewDocument(po PrintOptions) *Document {
+func NewDocument(po PrintOptions, fileName string) *Document {
 	doc := &Document{
 		Events: make([]Event, 0),
 	}
 	doc.printOptions = po
+	doc.FileName = fileName
 	return doc
 }
 

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"epoch/internal/interpreter"
 	"epoch/pkg/epoch"
 	"fmt"
 	"log"
@@ -23,8 +24,11 @@ func main() {
 		Id:       true,
 	}
 	if print_olny {
-		doc := epoch.NewDocument(po)
+		doc := epoch.NewDocument(po, file)
 		doc.LoadFromJson(file)
 		fmt.Println(doc)
+	} else {
+		//interpreter
+		interpreter.NewInterpreter(file)
 	}
 }

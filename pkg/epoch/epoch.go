@@ -12,15 +12,11 @@ const (
 
 type Event interface {
 	GetStart() float64
-	GetDescription() string
-	GetTitle() string
 	IsRelative() bool
 	IsEndRelative() bool
 	GetParent() Event
 	SetEnd(end float64)
 	GetDuration() float64
-	GetGPS() gps.GPS
-	SetGPS(g gps.GPS)
 	GetEpoch() *EventStruct
 }
 
@@ -61,22 +57,6 @@ func (e *EpochStruct) GetStart() float64 {
 	return e.Start
 }
 
-func (e *EventStruct) GetDescription() string {
-	return e.Description
-}
-
-func (e *EpochStruct) GetDescription() string {
-	return e.Description
-}
-
-func (e *EventStruct) GetTitle() string {
-	return e.Title
-}
-
-func (e *EpochStruct) GetTitle() string {
-	return e.Title
-}
-
 func (e *EventStruct) IsRelative() bool {
 	return e.isRelative
 }
@@ -115,22 +95,6 @@ func (e *EventStruct) GetDuration() float64 {
 
 func (e *EpochStruct) GetDuration() float64 {
 	return e.End
-}
-
-func (e *EventStruct) GetGPS() gps.GPS {
-	return e.GPS
-}
-
-func (e *EpochStruct) GetGPS() gps.GPS {
-	return e.GPS
-}
-
-func (e *EventStruct) SetGPS(ev gps.GPS) {
-	e.GPS = ev
-}
-
-func (e *EpochStruct) SetGPS(ev gps.GPS) {
-	e.GPS = ev
 }
 
 func (e *EventStruct) GetEpoch() *EventStruct {

@@ -132,7 +132,7 @@ func (doc *Document) SetGPS(e Event, l1, l2 gps.Degrees) Event {
 	if e == nil {
 		return nil
 	}
-	e.SetGPS(gps.NewGPS(l1, l2))
+	e.GetEpoch().GPS = gps.NewGPS(l1, l2)
 	return e
 }
 
@@ -147,10 +147,10 @@ func (doc Document) String() string {
 	for _, e := range doc.Events {
 		time := jd.JDToTime(e.GetStart())
 		if e.IsRelative() {
-			text += fmt.Sprintf("--r %12s\t%d \t%12s", e.GetParent().GetTitle(), time.Year(), e.GetTitle()) // time.Month(), time.Day(), time.Hour(), time.Minute(),
+			text += fmt.Sprintf("--r %12s\t%d \t%12s", e.GetEpoch().Title, time.Year(), e.GetEpoch().Title) // time.Month(), time.Day(), time.Hour(), time.Minute(),
 
 		} else {
-			text += fmt.Sprintf("%25s %d\t%12s", "", time.Year(), e.GetTitle()) //time.Month(), time.Day(), time.Hour(), time.Minute(),
+			text += fmt.Sprintf("%25s %d\t%12s", "", time.Year(), e.GetEpoch().Title) //time.Month(), time.Day(), time.Hour(), time.Minute(),
 
 		}
 		if e.GetDuration() > 0 {
@@ -165,8 +165,9 @@ func (doc Document) String() string {
 				text += fmt.Sprintf("\t| end %d", time.Year()) //, time.Month(), time.Day(), time.Hour(), time.Minute()
 			}
 		}
-		if e.GetGPS().Latitude != 0 || e.GetGPS().Longitude != 0 {
-			text += fmt.Sprintf("%s", e.GetGPS())
+		g := e.GetEpoch().GPS
+		if g.Latitude != 0 || g.Longitude != 0 {
+			text += fmt.Sprintf("%s", g)
 		}
 		text += "\n"
 	}

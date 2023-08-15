@@ -1,6 +1,7 @@
 package epoch
 
 import (
+	"errors"
 	"sort"
 	"time"
 
@@ -10,7 +11,7 @@ import (
 
 type Document struct {
 	Events       []Event
-	printOptions PrintOptions
+	PrintOptions PrintOptions
 	FileName     string
 }
 
@@ -18,7 +19,7 @@ func NewDocument(po PrintOptions, fileName string) *Document {
 	doc := &Document{
 		Events: make([]Event, 0),
 	}
-	doc.printOptions = po
+	doc.PrintOptions = po
 	doc.FileName = fileName
 	return doc
 }
@@ -142,4 +143,11 @@ func (doc *Document) docSort() {
 	sort.Slice(doc.Events, func(i, j int) bool {
 		return doc.Events[i].GetStart() < doc.Events[j].GetStart()
 	})
+}
+
+func (doc *Document) GetEventbuId(id int) (Event, error) {
+	if id < 0 || id > len(doc.Events)-1 {
+		return nil, errors.New("out of range")
+	}
+	return doc.Events[id], nil
 }

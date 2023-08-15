@@ -16,14 +16,14 @@ type PrintOptions struct {
 }
 
 func (doc Document) PrintId(index int) string {
-	if !doc.printOptions.Id {
+	if !doc.PrintOptions.Id {
 		return ""
 	}
 	return fmt.Sprintf("%-4d", index)
 
 }
 func (doc Document) PrintFlags(e Event) string {
-	if !doc.printOptions.Flags {
+	if !doc.PrintOptions.Flags {
 		return ""
 	}
 	ret := "-"
@@ -47,16 +47,16 @@ func (doc Document) PrintFlags(e Event) string {
 
 func (doc Document) PrintStart(e Event) string {
 	time := jd.JDToTime(e.GetStart())
-	if doc.printOptions.YearOnly {
+	if doc.PrintOptions.YearOnly {
 		return fmt.Sprintf("%4d", time.Year())
 
 	} else {
-		if doc.printOptions.Time {
+		if doc.PrintOptions.Time {
 			res := fmt.Sprintf("%d.%d.%d %d:%d", time.Day(), time.Month(), time.Year(), time.Hour(), time.Minute())
-			return fmt.Sprintf("%16s", res)
+			return fmt.Sprintf("\t%16s", res)
 		} else {
 			res := fmt.Sprintf("%d.%d.%d", time.Day(), time.Month(), time.Year())
-			return fmt.Sprintf("%10s", res)
+			return fmt.Sprintf("\t%10s", res)
 		}
 
 	}
@@ -68,17 +68,17 @@ func (doc Document) PrintTitle(e Event) string {
 }
 
 func (doc Document) PrintDuration(duration float64) string {
-	if !doc.printOptions.Duration {
+	if !doc.PrintOptions.Duration {
 		return ""
 	}
 	return fmt.Sprintf("\t( %.2f years )", duration)
 }
 
 func (doc Document) PrintEnd(end time.Time) string {
-	if doc.printOptions.YearOnly {
+	if doc.PrintOptions.YearOnly {
 		return fmt.Sprintf(" - %4d", end.Year())
 	} else {
-		if doc.printOptions.Time {
+		if doc.PrintOptions.Time {
 			res := fmt.Sprintf(" - %d.%d.%d %d:%d", end.Day(), end.Month(), end.Year(), end.Hour(), end.Minute())
 			return fmt.Sprintf("%-16s", res)
 		} else {
@@ -88,7 +88,7 @@ func (doc Document) PrintEnd(end time.Time) string {
 	}
 }
 func (doc Document) PrintGPS(e Event) string {
-	if !doc.printOptions.GPS {
+	if !doc.PrintOptions.GPS {
 		return ""
 	}
 	g := e.GetEpoch().GPS
@@ -117,7 +117,7 @@ func (doc Document) String() string {
 				text += doc.PrintDuration((e.GetDuration() - e.GetStart()) / JDYear)
 			}
 		} else {
-			if doc.printOptions.Time {
+			if doc.PrintOptions.Time {
 				text += fmt.Sprintf(" - %3s", "_")
 			}
 			text += fmt.Sprintf("%10s", "_")

@@ -32,8 +32,20 @@ func NewInterpreter(fileName string) {
 			return
 		}
 		line := string(userData)
-		if line == "q" || line == "quit" || line == "close" || line == "exit" {
+		if line == "q" || line == "quit" || line == "exit" {
 			return
+		}
+		if line == "help" || line == "h" || line == "?" {
+			fmt.Println("p;print\t\t-\tprint timeline")
+			fmt.Println("a;add\t\t-\tadd new event or epoch")
+			fmt.Println("r;rename\t-\trename event or epoch")
+			fmt.Println("d;des\t\t-\tchange description of event or epoch")
+			fmt.Println("m;move\t\t-\tchange start date of event or epoch")
+			fmt.Println("set\t\t-\tset print options")
+			fmt.Println("pd, print des\t-\tprint description of event or epoch")
+			fmt.Println("distance;dis\t-\tduration in years between start date of two event or epoch")
+			fmt.Println("q;exit;quit\t-\texit")
+			continue
 		}
 		if line == "save" || line == "s" {
 			doc.Savejson(fileName)
@@ -86,7 +98,7 @@ func NewInterpreter(fileName string) {
 			}
 		}
 
-		if line == "distance" || line == "dis" || line == "dif" {
+		if line == "distance" || line == "dis" {
 			event1 := getPArentEventByTitleorId(doc)
 			event2 := getPArentEventByTitleorId(doc)
 			if event1 != nil && event2 != nil {

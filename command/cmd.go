@@ -9,6 +9,7 @@ import (
 var (
 	// Used for flags.
 	jsonFile    string
+	outFile     string
 	userLicense string
 	Verbose     bool
 	Print       bool
@@ -50,11 +51,11 @@ var (
 )
 
 // Execute executes the root command.
-func Execute() (string, bool, error) {
+func Execute() (string, string, bool, error) {
 	if err := rootCmd.Execute(); err != nil {
-		return "", true, err
+		return "", "", true, err
 	}
-	return jsonFile, Print, nil
+	return jsonFile, outFile, Print, nil
 }
 
 func init() {
@@ -62,6 +63,7 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(&userLicense, "license", "l", "", "name of license for the project")
 	rootCmd.PersistentFlags().BoolVarP(&Verbose, "verbose", "v", false, "verbose output")
 	rootCmd.PersistentFlags().BoolVarP(&Print, "print", "p", false, "print only and exit")
+	rootCmd.PersistentFlags().StringVarP(&outFile, "out", "o", "", "output file")
 
 	rootCmd.AddCommand(versionCmd)
 	rootCmd.AddCommand(authorCmd)

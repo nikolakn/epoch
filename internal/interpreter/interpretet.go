@@ -137,11 +137,11 @@ func NewInterpreter(fileName string) {
 					}
 				} else {
 					d, m, y := getDateInput(doc.PrintOptions.YearOnly)
-					h, m := 0, 0
+					h, min := 0, 0
 					if doc.PrintOptions.Time {
-						h, m = getTimeInput()
+						h, min = getTimeInput()
 					}
-					start := time.Date(y, time.Month(m), d, 12, h, m, 0, time.UTC)
+					start := time.Date(y, time.Month(m), d, h, min, 0, 0, time.UTC)
 					doc.MoveStartAps(event, start)
 					if event.GetDuration() != 0 {
 						event.SetEnd(event.GetDuration())
@@ -187,11 +187,11 @@ func NewInterpreter(fileName string) {
 				isRelative := yesNo("is relative start")
 				if !isRelative {
 					d, m, y := getDateInput(doc.PrintOptions.YearOnly)
-					h, m := 0, 0
+					h, min := 0, 0
 					if doc.PrintOptions.Time {
-						h, m = getTimeInput()
+						h, min = getTimeInput()
 					}
-					start := time.Date(y, time.Month(m), d, 12, h, m, 0, time.UTC)
+					start := time.Date(y, time.Month(m), d, h, min, 0, 0, time.UTC)
 					doc.AddEventWithData(start, getStringInput("title"))
 				} else {
 					event := getPArentEventByTitleorId(doc)
@@ -205,18 +205,19 @@ func NewInterpreter(fileName string) {
 				isRelative := yesNo("is relative start")
 				if !isRelative {
 					d, m, y := getDateInput(doc.PrintOptions.YearOnly)
-					h, m := 0, 0
+					h, min := 0, 0
 					if doc.PrintOptions.Time {
-						h, m = getTimeInput()
+						h, min = getTimeInput()
 					}
-					start := time.Date(y, time.Month(m), d, 12, h, m, 0, time.UTC)
+					start := time.Date(y, time.Month(m), d, h, min, 0, 0, time.UTC)
+
 					fmt.Println("enter end date:")
-					h, m = 0, 0
+					h, min = 0, 0
 					d, m, y = getDateInput(doc.PrintOptions.YearOnly)
 					if doc.PrintOptions.Time {
-						h, m = getTimeInput()
+						h, min = getTimeInput()
 					}
-					end := time.Date(y, time.Month(m), d, 12, h, m, 0, time.UTC)
+					end := time.Date(y, time.Month(m), d, h, min, 0, 0, time.UTC)
 					doc.AddEpochWithData(start, end, getStringInput("title"))
 				} else {
 					event := getPArentEventByTitleorId(doc)

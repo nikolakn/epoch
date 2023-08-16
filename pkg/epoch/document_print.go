@@ -73,7 +73,7 @@ func (doc Document) PrintStart(e Event) string {
 
 }
 func (doc Document) PrintTitle(e Event) string {
-	return fmt.Sprintf("\t%-15s", e.GetEpoch().Title)
+	return fmt.Sprintf("\t%-20.15s", e.GetEpoch().Title)
 
 }
 

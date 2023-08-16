@@ -17,6 +17,24 @@
       },
       "url": "",
       "End": 2431701
+    },
+    {
+      "id": 1,
+      "parent_id": -1,
+      "start": 2430167.5,
+      "Description": "",
+      "titile": "Operation Barbarossa",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 2430367.000011574
     }
   ],
   "print_options": {

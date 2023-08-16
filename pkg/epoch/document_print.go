@@ -7,12 +7,13 @@ import (
 )
 
 type PrintOptions struct {
-	Flags    bool
-	YearOnly bool
-	Time     bool
-	Duration bool
-	GPS      bool
-	Id       bool
+	Flags       bool `json:"flags"`
+	YearOnly    bool `json:"yearonly"`
+	Time        bool `json:"time"`
+	Duration    bool `json:"duration"`
+	GPS         bool `json:"gps"`
+	Id          bool `json:"id_option"`
+	Description bool `json:"description"`
 }
 
 func (doc Document) PrintId(index int) string {
@@ -97,6 +98,15 @@ func (doc Document) PrintGPS(e Event) string {
 	}
 	return ""
 }
+func (doc Document) PrintDescription(e Event) string {
+	if !doc.PrintOptions.Description {
+		return ""
+	}
+	d := e.GetEpoch().Description
+
+	return fmt.Sprintf("\t%s ", d)
+
+}
 
 func (doc Document) String() string {
 	text := ""
@@ -120,10 +130,15 @@ func (doc Document) String() string {
 			if doc.PrintOptions.Time {
 				text += fmt.Sprintf(" - %3s", "_")
 			}
-			text += fmt.Sprintf("%10s", "_")
+			if doc.PrintOptions.YearOnly {
+				text += fmt.Sprintf("%4s", "_")
+			} else {
+				text += fmt.Sprintf("%10s", "_")
+			}
 			text += doc.PrintTitle(e)
 		}
 		text += doc.PrintGPS(e)
+		text += doc.PrintDescription(e)
 		text += "\n"
 	}
 	return text

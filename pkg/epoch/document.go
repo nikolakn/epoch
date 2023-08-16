@@ -1,7 +1,7 @@
 package epoch
 
 import (
-	"errors"
+	"fmt"
 	"sort"
 	"time"
 
@@ -145,9 +145,30 @@ func (doc *Document) docSort() {
 	})
 }
 
-func (doc *Document) GetEventbuId(id int) (Event, error) {
+func (doc *Document) GetEventbuId(id int) Event {
 	if id < 0 || id > len(doc.Events)-1 {
-		return nil, errors.New("out of range")
+		fmt.Println("id out of range")
+		return nil
 	}
-	return doc.Events[id], nil
+	return doc.Events[id]
+}
+
+func (doc *Document) GetEventbyTitle(title string) Event {
+	for _, e := range doc.Events {
+		if e.GetEpoch().Title == title {
+			return e
+		}
+	}
+	return nil
+}
+
+func (doc *Document) MoveStartAps(e Event, date time.Time) {
+	start := jd.TimeToJD(date)
+	e.GetEpoch().Start = start
+	doc.docSort()
+}
+
+func (doc *Document) MoveStartRel(e Event, rel float64) {
+	e.GetEpoch().Start = rel
+	doc.docSort()
 }

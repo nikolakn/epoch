@@ -24,6 +24,11 @@ type MarshalEventStruct struct {
 	End           float64 `end:"start"`
 }
 
+type MarshalDoc struct {
+	Events []MarshalEventStruct `json:"events"`
+	Po     PrintOptions         `json:"print_options"`
+}
+
 func (doc *Document) Savejson(name string) {
 	for index, e := range doc.Events {
 		e.GetEpoch().Id = index
@@ -53,7 +58,12 @@ func (doc *Document) Savejson(name string) {
 		tempArr = append(tempArr, es)
 
 	}
-	file, err_m := json.MarshalIndent(tempArr, "", "  ")
+	md := MarshalDoc{
+		Events: tempArr,
+		Po:     doc.PrintOptions,
+	}
+
+	file, err_m := json.MarshalIndent(md, "", "  ")
 	if err_m != nil {
 		log.Println("error marshal: ", err_m)
 		return
@@ -66,19 +76,26 @@ func (doc *Document) Savejson(name string) {
 }
 
 func (doc *Document) LoadFromJson(name string) {
-	tempArr := make([]MarshalEventStruct, 0)
+	//tempArr :=
+	md := MarshalDoc{
+		Events: make([]MarshalEventStruct, 0),
+		Po:     doc.PrintOptions,
+	}
+
 	jsonFile, err := os.Open(name)
 	if err != nil {
 		log.Println("error read to file:  ", err)
 		return
 	}
 	byteValue, _ := io.ReadAll(jsonFile)
-	erru := json.Unmarshal(byteValue, &tempArr)
+	erru := json.Unmarshal(byteValue, &md) //&md.Events for old files
 	if erru != nil {
 		log.Println("error read to file:  ", erru)
 		return
 	}
+	tempArr := md.Events
 	doc.Events = make([]Event, 0)
+	doc.PrintOptions = md.Po //comment out for old files
 	for _, e := range tempArr {
 		if e.End != 0 {
 			es := &EpochStruct{}

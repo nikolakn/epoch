@@ -4,7 +4,9 @@ import (
 	"bufio"
 	"epoch/pkg/epoch"
 	"fmt"
+	"math"
 	"os"
+	"strconv"
 	"time"
 )
 
@@ -46,8 +48,54 @@ func NewInterpreter(fileName string) {
 			doc.PrintOptions.GPS = yesNo("display gps")
 			doc.PrintOptions.Duration = yesNo("display duration")
 			doc.PrintOptions.YearOnly = yesNo("display year only")
+			doc.PrintOptions.Description = yesNo("display description")
 
 		}
+		if line == "des" || line == "d" {
+			event := getPArentEventByTitleorId(doc)
+			if event != nil {
+				des := getStringInput("description")
+				event.GetEpoch().Description = des
+			}
+		}
+		if line == "rename" || line == "r" {
+			event := getPArentEventByTitleorId(doc)
+			if event != nil {
+				t := getStringInput("title")
+				event.GetEpoch().Title = t
+			}
+		}
+		if line == "move" || line == "m" {
+			event := getPArentEventByTitleorId(doc)
+			if event != nil {
+				if event.GetEpoch().IsRelative {
+					rel := getRelative()
+					doc.MoveStartRel(event, rel)
+				} else {
+					d, m, y := getDateInput()
+					start := time.Date(y, time.Month(m), d, 12, 0, 0, 0, time.UTC)
+					doc.MoveStartAps(event, start)
+				}
+			}
+		}
+
+		if line == "print des" || line == "pd" {
+			event := getPArentEventByTitleorId(doc)
+			if event != nil {
+				fmt.Println(event.GetEpoch().Description)
+			}
+		}
+
+		if line == "distance" || line == "dis" || line == "dif" {
+			event1 := getPArentEventByTitleorId(doc)
+			event2 := getPArentEventByTitleorId(doc)
+			if event1 != nil && event2 != nil {
+				d := math.Abs(event2.GetStart() - event1.GetStart())
+				years := float64(d) / epoch.JDYear
+				fmt.Println("diffrence in years: ", years)
+			}
+		}
+
 		if line == "add" || line == "a" {
 			fmt.Print("epoch (ep) or event(ev) (empty for event) > ")
 			userData, _, err := bufio.NewReader(os.Stdin).ReadLine()
@@ -63,8 +111,7 @@ func NewInterpreter(fileName string) {
 					start := time.Date(y, time.Month(m), d, 12, 0, 0, 0, time.UTC)
 					doc.AddEventWithData(start, getStringInput("title"))
 				} else {
-					id := getParentId()
-					event, _ := doc.GetEventbuId(id)
+					event := getPArentEventByTitleorId(doc)
 					if event != nil {
 						rel := getRelative()
 						doc.AddRelativeEventWithData(event, rel+1, getStringInput("title"))
@@ -81,10 +128,9 @@ func NewInterpreter(fileName string) {
 					end := time.Date(y, time.Month(m), d, 12, 0, 0, 0, time.UTC)
 					doc.AddEpochWithData(start, end, getStringInput("title"))
 				} else {
-					id := getParentId()
-					event, _ := doc.GetEventbuId(id)
+					event := getPArentEventByTitleorId(doc)
 					if event != nil {
-						fmt.Println("relative start from parent event (id,title): ", id, event.GetEpoch().Title)
+						fmt.Println("relative start from parent event (title): ", event.GetEpoch().Title)
 						rel := getRelative()
 						fmt.Println("relative end:")
 						rel_end := getRelative()
@@ -129,6 +175,21 @@ func getParentId() int {
 		return 0
 	}
 	return id
+}
+
+func getPArentEventByTitleorId(doc *epoch.Document) epoch.Event {
+	fmt.Print("parent id or title > ")
+	text, _, err4 := bufio.NewReader(os.Stdin).ReadLine()
+	if err4 != nil {
+		fmt.Println("error: ", err4)
+		return nil
+	}
+	if id, err := strconv.Atoi(string(text)); err == nil {
+		event := doc.GetEventbuId(id)
+		return event
+	}
+	event := doc.GetEventbyTitle(string(text))
+	return event
 }
 
 func getRelative() float64 {

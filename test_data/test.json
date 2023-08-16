@@ -1,0 +1,12 @@
+{
+  "events": [],
+  "print_options": {
+    "flags": false,
+    "yearonly": true,
+    "time": false,
+    "duration": true,
+    "gps": false,
+    "id_option": true,
+    "description": true
+  }
+}

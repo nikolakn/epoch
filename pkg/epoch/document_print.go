@@ -3,6 +3,7 @@ package epoch
 import (
 	jd "epoch/internal/julian"
 	"fmt"
+	"strconv"
 	"time"
 )
 
@@ -27,12 +28,20 @@ func (doc Document) PrintFlags(e Event) string {
 	if !doc.PrintOptions.Flags {
 		return ""
 	}
-	ret := "-"
+	ret := ""
 	if e.Relative() {
 		ret += "r"
 
 	} else {
 		ret += "a"
+	}
+	if e.GetEpoch().Importance > 0 {
+		s2 := strconv.Itoa(e.GetEpoch().Importance)
+		ret += "_I" + s2
+	}
+	if e.GetEpoch().Type > 0 {
+		s2 := strconv.Itoa(e.GetEpoch().Type)
+		ret += "_T" + s2
 	}
 	switch e.(type) {
 	case *EpochStruct:
@@ -43,7 +52,7 @@ func (doc Document) PrintFlags(e Event) string {
 
 	}
 
-	return ret
+	return ret + " "
 }
 
 func (doc Document) PrintStart(e Event) string {
@@ -112,7 +121,7 @@ func (doc Document) String() string {
 	text := ""
 	for index, e := range doc.Events {
 		text += doc.PrintId(index)
-		text += doc.PrintFlags(e)
+		text += fmt.Sprintf("%16s", doc.PrintFlags(e))
 		text += doc.PrintStart(e)
 		if e.GetDuration() != 0 {
 			if e.Relative() || e.EndRelative() {
@@ -127,7 +136,7 @@ func (doc Document) String() string {
 				text += doc.PrintDuration((e.GetDuration() - e.GetStart()) / JDYear)
 			}
 		} else {
-			if doc.PrintOptions.Time {
+			if doc.PrintOptions.Time && !doc.PrintOptions.YearOnly {
 				text += fmt.Sprintf(" - %3s", "_")
 			}
 			if doc.PrintOptions.YearOnly {

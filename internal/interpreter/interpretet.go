@@ -2,6 +2,7 @@ package interpreter
 
 import (
 	"bufio"
+	"epoch/internal/gps"
 	"epoch/pkg/epoch"
 	"fmt"
 	"math"
@@ -36,15 +37,22 @@ func NewInterpreter(fileName string) {
 			return
 		}
 		if line == "help" || line == "h" || line == "?" {
-			fmt.Println("p;print\t\t-\tprint timeline")
-			fmt.Println("a;add\t\t-\tadd new event or epoch")
-			fmt.Println("r;rename\t-\trename event or epoch")
-			fmt.Println("d;des\t\t-\tchange description of event or epoch")
-			fmt.Println("m;move\t\t-\tchange start date of event or epoch")
+			fmt.Println("p; print\t-\tprint timeline")
+			fmt.Println("a; add\t\t-\tadd new event or epoch")
+			fmt.Println("r; rename\t-\trename event or epoch")
+			fmt.Println("d; des\t\t-\tchange description of event or epoch")
+			fmt.Println("m; move\t\t-\tchange start date of event or epoch")
 			fmt.Println("set\t\t-\tset print options")
-			fmt.Println("pd, print des\t-\tprint description of event or epoch")
-			fmt.Println("distance;dis\t-\tduration in years between start date of two event or epoch")
-			fmt.Println("q;exit;quit\t-\texit")
+			fmt.Println("pd; print des\t-\tprint description of event or epoch")
+			fmt.Println("distance; dis\t-\tduration in years between start date of two event or epoch")
+			fmt.Println("location; gps\t-\tgeo location of  event or epoch")
+			fmt.Println("del; delate\t-\tdelate of event or epoch")
+
+			fmt.Println("url; u\t-\turl of event or epoch doc")
+			fmt.Println("importance; lvl\t-\tlevel of importance of event or epoch")
+			fmt.Println("type; \t-\ttype of event or epoch")
+
+			fmt.Println("q; exit; quit\t-\texit")
 			continue
 		}
 		if line == "save" || line == "s" {
@@ -70,6 +78,46 @@ func NewInterpreter(fileName string) {
 				event.GetEpoch().Description = des
 			}
 		}
+
+		if line == "url" || line == "u" {
+			event := getPArentEventByTitleorId(doc)
+			if event != nil {
+				t := getStringInput("url")
+				event.GetEpoch().Url = t
+			}
+		}
+		if line == "importance" || line == "lvl" {
+			event := getPArentEventByTitleorId(doc)
+			if event != nil {
+				t := getInt("Importance")
+				event.GetEpoch().Importance = t
+			}
+		}
+		if line == "type" {
+			event := getPArentEventByTitleorId(doc)
+			if event != nil {
+				t := getInt("Tyepe")
+				event.GetEpoch().Type = t
+			}
+		}
+
+		if line == "gps" || line == "location" {
+			event := getPArentEventByTitleorId(doc)
+			if event != nil {
+				l1 := getfloat64("latitude")
+				l2 := getfloat64("longitude")
+				event.GetEpoch().GPS = gps.NewGPS(gps.Degrees(l1), gps.Degrees(l2))
+			}
+		}
+
+		if line == "des" || line == "d" {
+			event := getPArentEventByTitleorId(doc)
+			if event != nil {
+				des := getStringInput("description")
+				event.GetEpoch().Description = des
+			}
+		}
+
 		if line == "rename" || line == "r" {
 			event := getPArentEventByTitleorId(doc)
 			if event != nil {
@@ -83,10 +131,22 @@ func NewInterpreter(fileName string) {
 				if event.GetEpoch().IsRelative {
 					rel := getRelative()
 					doc.MoveStartRel(event, rel)
+					if event.GetDuration() != 0 {
+						event.SetEnd(rel + event.GetDuration())
+
+					}
 				} else {
 					d, m, y := getDateInput(doc.PrintOptions.YearOnly)
-					start := time.Date(y, time.Month(m), d, 12, 0, 0, 0, time.UTC)
+					h, m := 0, 0
+					if doc.PrintOptions.Time {
+						h, m = getTimeInput()
+					}
+					start := time.Date(y, time.Month(m), d, 12, h, m, 0, time.UTC)
 					doc.MoveStartAps(event, start)
+					if event.GetDuration() != 0 {
+						event.SetEnd(event.GetDuration())
+
+					}
 				}
 			}
 		}
@@ -95,6 +155,13 @@ func NewInterpreter(fileName string) {
 			event := getPArentEventByTitleorId(doc)
 			if event != nil {
 				fmt.Println(event.GetEpoch().Description)
+			}
+		}
+
+		if line == "delate" || line == "del" {
+			event := getPArentEventByTitleorId(doc)
+			if event != nil {
+				doc.DeleteEvent(event)
 			}
 		}
 
@@ -120,7 +187,11 @@ func NewInterpreter(fileName string) {
 				isRelative := yesNo("is relative start")
 				if !isRelative {
 					d, m, y := getDateInput(doc.PrintOptions.YearOnly)
-					start := time.Date(y, time.Month(m), d, 12, 0, 0, 0, time.UTC)
+					h, m := 0, 0
+					if doc.PrintOptions.Time {
+						h, m = getTimeInput()
+					}
+					start := time.Date(y, time.Month(m), d, 12, h, m, 0, time.UTC)
 					doc.AddEventWithData(start, getStringInput("title"))
 				} else {
 					event := getPArentEventByTitleorId(doc)
@@ -134,10 +205,18 @@ func NewInterpreter(fileName string) {
 				isRelative := yesNo("is relative start")
 				if !isRelative {
 					d, m, y := getDateInput(doc.PrintOptions.YearOnly)
-					start := time.Date(y, time.Month(m), d, 12, 0, 0, 0, time.UTC)
+					h, m := 0, 0
+					if doc.PrintOptions.Time {
+						h, m = getTimeInput()
+					}
+					start := time.Date(y, time.Month(m), d, 12, h, m, 0, time.UTC)
 					fmt.Println("enter end date:")
+					h, m = 0, 0
 					d, m, y = getDateInput(doc.PrintOptions.YearOnly)
-					end := time.Date(y, time.Month(m), d, 12, 0, 0, 0, time.UTC)
+					if doc.PrintOptions.Time {
+						h, m = getTimeInput()
+					}
+					end := time.Date(y, time.Month(m), d, 12, h, m, 0, time.UTC)
 					doc.AddEpochWithData(start, end, getStringInput("title"))
 				} else {
 					event := getPArentEventByTitleorId(doc)
@@ -164,6 +243,17 @@ func getStringInput(msg string) string {
 	return string(text)
 }
 
+func getfloat64(msg string) float64 {
+	var v float64
+	fmt.Print(msg + " > ")
+	_, err := fmt.Scanf("%f\n", &v)
+	if err != nil {
+		fmt.Println("error: ", err)
+		return 0
+	}
+	return v
+}
+
 func yesNo(msg string) bool {
 	fmt.Print(msg + " y/(n) > ")
 	text, _, err4 := bufio.NewReader(os.Stdin).ReadLine()
@@ -176,6 +266,17 @@ func yesNo(msg string) bool {
 	} else {
 		return false
 	}
+}
+
+func getInt(msg string) int {
+	var id int
+	fmt.Print(msg + " > ")
+	_, err := fmt.Scanf("%d\n", &id)
+	if err != nil {
+		fmt.Println("error: ", err)
+		return 0
+	}
+	return id
 }
 
 func getParentId() int {
@@ -244,4 +345,26 @@ func getDateInput(yearsOnly bool) (int, int, int) {
 		return d, m, y
 	}
 	return 0, 0, 0
+}
+
+func getTimeInput() (int, int) {
+	for true {
+		var h, m int
+
+		fmt.Print("hour > ")
+		_, err := fmt.Scanf("%2d\n", &h)
+		if err != nil {
+			fmt.Println("error: ", err)
+			continue
+		}
+		fmt.Print("minute > ")
+		_, err2 := fmt.Scanf("%2d\n", &m)
+		if err2 != nil {
+			fmt.Println("error: ", err2)
+			continue
+		}
+
+		return h, m
+	}
+	return 0, 0
 }

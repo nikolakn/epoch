@@ -172,3 +172,24 @@ func (doc *Document) MoveStartRel(e Event, rel float64) {
 	e.GetEpoch().Start = rel
 	doc.docSort()
 }
+func (doc *Document) DeleteEvent(ev Event) {
+	for _, e := range doc.Events {
+		if e.GetParent() == ev {
+			e.GetEpoch().Start = e.GetStart()
+			e.GetEpoch().IsRelative = false //must go after setting start bavause secound getstart must be apsolute
+			if e.GetDuration() != 0 {
+				e.SetEnd(e.GetStart() + e.GetDuration())
+			}
+
+		}
+	}
+	for index, e := range doc.Events {
+		if e == ev {
+			l := len(doc.Events) - 1
+			doc.Events[index] = doc.Events[l]
+			doc.Events = doc.Events[:l]
+		}
+	}
+	doc.docSort()
+
+}

@@ -200,11 +200,11 @@
     }
   ],
   "print_options": {
-    "flags": false,
-    "yearonly": true,
+    "flags": true,
+    "yearonly": false,
     "time": false,
     "duration": true,
-    "gps": false,
+    "gps": true,
     "id_option": true,
     "description": true
   }

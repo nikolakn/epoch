@@ -171,7 +171,9 @@ func NewInterpreter(fileName string) {
 			if event1 != nil && event2 != nil {
 				d := math.Abs(event2.GetStart() - event1.GetStart())
 				years := float64(d) / epoch.JDYear
-				fmt.Println("diffrence in years: ", years)
+				iy := int(years)
+				y_ostatak := 12.0 * float64(years-float64(iy))
+				fmt.Printf("diffrence in years %f years ~(%d years and %0.2f months)\n", years, iy, y_ostatak)
 			}
 		}
 

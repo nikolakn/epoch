@@ -35,6 +35,114 @@
       },
       "url": "",
       "End": 2430367.000011574
+    },
+    {
+      "id": 2,
+      "parent_id": -1,
+      "start": 2430246.5,
+      "Description": "",
+      "titile": "Siege of Leningrad",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 0
+    },
+    {
+      "id": 3,
+      "parent_id": -1,
+      "start": 2430267.5,
+      "Description": "",
+      "titile": "Operation Typhoon",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 0
+    },
+    {
+      "id": 4,
+      "parent_id": -1,
+      "start": 2430593.5,
+      "Description": "",
+      "titile": "Battle of Stalingrad",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 2430757.5
+    },
+    {
+      "id": 5,
+      "parent_id": -1,
+      "start": 2430682.5,
+      "Description": "",
+      "titile": "Stalingrad counter-offensives",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 0
+    },
+    {
+      "id": 6,
+      "parent_id": -1,
+      "start": 2431263.5,
+      "Description": "",
+      "titile": "Operation Bagration",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 2431321.5
+    },
+    {
+      "id": 7,
+      "parent_id": -1,
+      "start": 2431561.5,
+      "Description": "",
+      "titile": "Battle of Berlin",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 2431577.5
     }
   ],
   "print_options": {

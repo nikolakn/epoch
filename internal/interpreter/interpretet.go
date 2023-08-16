@@ -84,7 +84,7 @@ func NewInterpreter(fileName string) {
 					rel := getRelative()
 					doc.MoveStartRel(event, rel)
 				} else {
-					d, m, y := getDateInput()
+					d, m, y := getDateInput(doc.PrintOptions.YearOnly)
 					start := time.Date(y, time.Month(m), d, 12, 0, 0, 0, time.UTC)
 					doc.MoveStartAps(event, start)
 				}
@@ -119,7 +119,7 @@ func NewInterpreter(fileName string) {
 			if line == "event" || line == "" || line == "ev" {
 				isRelative := yesNo("is relative start")
 				if !isRelative {
-					d, m, y := getDateInput()
+					d, m, y := getDateInput(doc.PrintOptions.YearOnly)
 					start := time.Date(y, time.Month(m), d, 12, 0, 0, 0, time.UTC)
 					doc.AddEventWithData(start, getStringInput("title"))
 				} else {
@@ -133,10 +133,10 @@ func NewInterpreter(fileName string) {
 			} else {
 				isRelative := yesNo("is relative start")
 				if !isRelative {
-					d, m, y := getDateInput()
+					d, m, y := getDateInput(doc.PrintOptions.YearOnly)
 					start := time.Date(y, time.Month(m), d, 12, 0, 0, 0, time.UTC)
 					fmt.Println("enter end date:")
-					d, m, y = getDateInput()
+					d, m, y = getDateInput(doc.PrintOptions.YearOnly)
 					end := time.Date(y, time.Month(m), d, 12, 0, 0, 0, time.UTC)
 					doc.AddEpochWithData(start, end, getStringInput("title"))
 				} else {
@@ -215,20 +215,25 @@ func getRelative() float64 {
 	return y * epoch.JDYear
 }
 
-func getDateInput() (int, int, int) {
+func getDateInput(yearsOnly bool) (int, int, int) {
 	for true {
 		var d, m, y int
-		fmt.Print("day > ")
-		_, err := fmt.Scanf("%2d\n", &d)
-		if err != nil {
-			fmt.Println("error: ", err)
-			continue
-		}
-		fmt.Print("month > ")
-		_, err2 := fmt.Scanf("%2d\n", &m)
-		if err2 != nil {
-			fmt.Println("error: ", err2)
-			continue
+		if !yearsOnly {
+			fmt.Print("day > ")
+			_, err := fmt.Scanf("%2d\n", &d)
+			if err != nil {
+				fmt.Println("error: ", err)
+				continue
+			}
+			fmt.Print("month > ")
+			_, err2 := fmt.Scanf("%2d\n", &m)
+			if err2 != nil {
+				fmt.Println("error: ", err2)
+				continue
+			}
+		} else {
+			d = 1
+			m = 1
 		}
 		fmt.Print("year > ")
 		_, err3 := fmt.Scanf("%d\n", &y)

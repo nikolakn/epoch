@@ -111,15 +111,6 @@ func NewInterpreter(fileName string) {
 			}
 		}
 
-		if line == "des" || line == "d" {
-			//#TODO curently text is readed until new line fix to read until ctrl-D
-			event := getPArentEventByTitleorId(doc)
-			if event != nil {
-				des := getStringInput("description")
-				event.GetEpoch().Description = des
-			}
-		}
-
 		if line == "rename" || line == "r" {
 			event := getPArentEventByTitleorId(doc)
 			if event != nil {

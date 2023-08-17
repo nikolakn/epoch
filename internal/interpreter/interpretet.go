@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"math"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -33,13 +34,17 @@ func NewInterpreter(fileName string) {
 			fmt.Println("input error: ", err)
 			return
 		}
-		line := string(userData)
+		line := strings.TrimSpace(string(userData))
 		if line == "q" || line == "quit" || line == "exit" {
 			return
 		}
 		if line == "help" || line == "h" || line == "?" {
 			fmt.Println("p; print\t-\tprint timeline")
 			fmt.Println("a; add\t\t-\tadd new event or epoch")
+			fmt.Println("ae; add event\t-\tadd new absolute event")
+			fmt.Println("are; add rel event\t-\tadd new relative event")
+			fmt.Println("aep; add epoch\t-\tadd new absolute epoch")
+			fmt.Println("arep; add rel epoch\t-\tadd new relative epoch")
 			fmt.Println("r; rename\t-\trename event or epoch")
 			fmt.Println("d; des\t\t-\tchange description of event or epoch")
 			fmt.Println("m; move\t\t-\tchange start date of event or epoch")
@@ -49,9 +54,9 @@ func NewInterpreter(fileName string) {
 			fmt.Println("location; gps\t-\tgeo location of  event or epoch")
 			fmt.Println("del; delate\t-\tdelate of event or epoch")
 
-			fmt.Println("url; u\t-\turl of event or epoch doc")
+			fmt.Println("url; u\t\t-\turl of event or epoch doc")
 			fmt.Println("importance; lvl\t-\tlevel of importance of event or epoch")
-			fmt.Println("type; \t-\ttype of event or epoch")
+			fmt.Println("type; \t\t-\ttype of event or epoch")
 
 			fmt.Println("q; exit; quit\t-\texit")
 			continue
@@ -171,60 +176,74 @@ func NewInterpreter(fileName string) {
 		}
 
 		if line == "add" || line == "a" {
-			fmt.Print("epoch (ep) or event(ev) (empty for event) > ")
+			fmt.Print("epoch or event(ev) (defoult event) > ")
 			userData, _, err := bufio.NewReader(os.Stdin).ReadLine()
 			if err != nil {
 				fmt.Println("input error: ", err)
 				return
 			}
-			line := string(userData)
-			if line == "event" || line == "" || line == "ev" {
+			ud := string(userData)
+			if ud == "event" || ud == "" || ud == "ev" {
 				isRelative := yesNo("is relative start")
 				if !isRelative {
-					d, m, y := getDateInput(doc.PrintOptions.YearOnly)
-					h, min := 0, 0
-					if doc.PrintOptions.Time {
-						h, min = getTimeInput()
-					}
-					start := time.Date(y, time.Month(m), d, h, min, 0, 0, time.UTC)
-					doc.AddEventWithData(start, getStringInput("title"))
+					line = "ae"
 				} else {
-					event := getPArentEventByTitleorId(doc)
-					if event != nil {
-						rel := getRelative()
-						doc.AddRelativeEventWithData(event, rel+1, getStringInput("title"))
-					}
-
+					line = "are"
 				}
 			} else {
 				isRelative := yesNo("is relative start")
 				if !isRelative {
-					d, m, y := getDateInput(doc.PrintOptions.YearOnly)
-					h, min := 0, 0
-					if doc.PrintOptions.Time {
-						h, min = getTimeInput()
-					}
-					start := time.Date(y, time.Month(m), d, h, min, 0, 0, time.UTC)
-
-					fmt.Println("enter end date:")
-					h, min = 0, 0
-					d, m, y = getDateInput(doc.PrintOptions.YearOnly)
-					if doc.PrintOptions.Time {
-						h, min = getTimeInput()
-					}
-					end := time.Date(y, time.Month(m), d, h, min, 0, 0, time.UTC)
-					doc.AddEpochWithData(start, end, getStringInput("title"))
+					line = "aep"
 				} else {
-					event := getPArentEventByTitleorId(doc)
-					if event != nil {
-						fmt.Println("relative start from parent event (title): ", event.GetEpoch().Title)
-						rel := getRelative()
-						fmt.Println("relative end:")
-						rel_end := getRelative()
-
-						doc.AddRelativeEpochWithData(event, rel, rel_end, getStringInput("title"))
-					}
+					line = "arep"
 				}
+			}
+		}
+		if line == "add event" || line == "ae" {
+			d, m, y := getDateInput(doc.PrintOptions.YearOnly)
+			h, min := 0, 0
+			if doc.PrintOptions.Time {
+				h, min = getTimeInput()
+			}
+			start := time.Date(y, time.Month(m), d, h, min, 0, 0, time.UTC)
+			doc.AddEventWithData(start, getStringInput("title"))
+		}
+		if line == "add rel event" || line == "are" {
+			event := getPArentEventByTitleorId(doc)
+			if event != nil {
+				rel := getRelative()
+				doc.AddRelativeEventWithData(event, rel+1, getStringInput("title"))
+			}
+		}
+		if line == "add epoch" || line == "aep" {
+			d, m, y := getDateInput(doc.PrintOptions.YearOnly)
+			h, min := 0, 0
+			if doc.PrintOptions.Time {
+				h, min = getTimeInput()
+			}
+			start := time.Date(y, time.Month(m), d, h, min, 0, 0, time.UTC)
+
+			fmt.Println("enter end date:")
+			h, min = 0, 0
+			d, m, y = getDateInput(doc.PrintOptions.YearOnly)
+			if doc.PrintOptions.Time {
+				h, min = getTimeInput()
+			}
+			end := time.Date(y, time.Month(m), d, h, min, 0, 0, time.UTC)
+			if end.Before(start) {
+				fmt.Println("end date is before start, not added!")
+			} else {
+				doc.AddEpochWithData(start, end, getStringInput("title"))
+			}
+		}
+		if line == "add rel epoch" || line == "arep" {
+			event := getPArentEventByTitleorId(doc)
+			if event != nil {
+				rel := getRelative()
+				fmt.Println("relative end:")
+				rel_end := getRelative()
+
+				doc.AddRelativeEpochWithData(event, rel, rel_end, getStringInput("title"))
 			}
 		}
 	}
@@ -322,12 +341,26 @@ func getRelative() float64 {
 func getDateInput(yearsOnly bool) (int, int, int) {
 	for true {
 		var d, m, y int
+
 		if !yearsOnly {
-			fmt.Print("day > ")
-			_, err := fmt.Scanf("%2d\n", &d)
-			if err != nil {
-				fmt.Println("error: ", err)
+			fmt.Print("day or date> ")
+			text, _, err4 := bufio.NewReader(os.Stdin).ReadLine()
+			if err4 != nil {
+				fmt.Println("error: ", err4)
 				continue
+			}
+			re := regexp.MustCompile(`\d{1,2}.\d{1,2}.(-)*\d`)
+			isDate := re.Match(text)
+			if isDate {
+				arr := strings.Split(string(text), ".")
+				d, _ = strconv.Atoi(arr[0])
+				m, _ = strconv.Atoi(arr[1])
+				y, _ = strconv.Atoi(arr[2])
+				return d, m, y
+			} else {
+				if d, err4 = strconv.Atoi(string(text)); err4 != nil {
+					continue
+				}
 			}
 			fmt.Print("month > ")
 			_, err2 := fmt.Scanf("%2d\n", &m)

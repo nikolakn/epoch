@@ -3,6 +3,7 @@ package interpreter
 import (
 	"bufio"
 	"epoch/internal/gps"
+	jd "epoch/internal/julian"
 	"epoch/pkg/epoch"
 	"fmt"
 	"math"
@@ -54,7 +55,8 @@ help
 		arep | 'add rel epoch'     add new relative epoch 
 	print
 		p  | print              print timeline 
-		pd | 'print des'        print description of event or epoch 
+		pd | 'print des'        print description of event or epoch
+		pr | 'print range'      print event between start and end date
 		distance | dis          duration in years between start date of two event or epoch 
 	edit
 		r | rename | title      rename event or epoch 
@@ -65,6 +67,9 @@ help
 		url | u                 url of event or epoch doc 
 		importance | lvl        level of importance of event or epoch 
 		type                    type of event or epoch 
+	search
+		search title | st       search by title
+		search des   | sd       search by description
 	`
 			fmt.Println(help)
 			continue
@@ -75,6 +80,24 @@ help
 		if line == "print" || line == "p" {
 			fmt.Println(doc)
 		}
+
+		if line == "print range" || line == "pr" {
+			d, m, y := getDateInput(doc.PrintOptions.YearOnly)
+			d_end, m_end, y_end := getDateInput(doc.PrintOptions.YearOnly)
+			start := time.Date(y, time.Month(m), d, 0, 0, 0, 0, time.UTC)
+			end := time.Date(y_end, time.Month(m_end), d_end, 0, 0, 0, 0, time.UTC)
+			s := jd.TimeToJD(start)
+			e := jd.TimeToJD(end)
+			fmt.Println(s, e)
+			for _, event := range doc.Events {
+				date := event.GetStart()
+				if date >= s && date < e {
+					fmt.Println(doc.PrintEvent(event))
+				}
+			}
+			//PrintEvent
+		}
+
 		if line == "set" {
 			doc.PrintOptions.Flags = yesNo("display flags")
 			doc.PrintOptions.Id = yesNo("display id")

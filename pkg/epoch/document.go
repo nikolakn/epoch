@@ -144,6 +144,9 @@ func (doc *Document) docSort() {
 	sort.Slice(doc.Events, func(i, j int) bool {
 		return doc.Events[i].GetStart() < doc.Events[j].GetStart()
 	})
+	for i, e := range doc.Events {
+		e.GetEpoch().Id = i
+	}
 }
 
 func (doc *Document) GetEventbuId(id int) Event {

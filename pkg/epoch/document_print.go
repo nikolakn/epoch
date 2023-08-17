@@ -119,36 +119,43 @@ func (doc Document) PrintDescription(e Event) string {
 
 func (doc Document) String() string {
 	text := ""
-	for index, e := range doc.Events {
-		text += doc.PrintId(index)
-		text += fmt.Sprintf("%16s", doc.PrintFlags(e))
-		text += doc.PrintStart(e)
-		if e.GetDuration() != 0 {
-			if e.Relative() || e.EndRelative() {
-				time := jd.JDToTime(e.GetStart() + e.GetDuration())
-				text += doc.PrintEnd(time)
-				text += doc.PrintTitle(e)
-				text += doc.PrintDuration(e.GetDuration() / JDYear)
-			} else {
-				time := jd.JDToTime(e.GetDuration())
-				text += doc.PrintEnd(time)
-				text += doc.PrintTitle(e)
-				text += doc.PrintDuration((e.GetDuration() - e.GetStart()) / JDYear)
-			}
-		} else {
-			if doc.PrintOptions.Time && !doc.PrintOptions.YearOnly {
-				text += fmt.Sprintf(" - %3s", "_")
-			}
-			if doc.PrintOptions.YearOnly {
-				text += fmt.Sprintf("%4s", "_")
-			} else {
-				text += fmt.Sprintf("%10s", "_")
-			}
-			text += doc.PrintTitle(e)
-		}
-		text += doc.PrintGPS(e)
-		text += doc.PrintDescription(e)
+	for _, e := range doc.Events {
+		text += doc.PrintEvent(e)
 		text += "\n"
 	}
+	return text
+}
+
+func (doc Document) PrintEvent(e Event) string {
+	text := ""
+	text += doc.PrintId(e.GetEpoch().Id)
+	text += fmt.Sprintf("%16s", doc.PrintFlags(e))
+	text += doc.PrintStart(e)
+	if e.GetDuration() != 0 {
+		if e.Relative() || e.EndRelative() {
+			time := jd.JDToTime(e.GetStart() + e.GetDuration())
+			text += doc.PrintEnd(time)
+			text += doc.PrintTitle(e)
+			text += doc.PrintDuration(e.GetDuration() / JDYear)
+		} else {
+			time := jd.JDToTime(e.GetDuration())
+			text += doc.PrintEnd(time)
+			text += doc.PrintTitle(e)
+			text += doc.PrintDuration((e.GetDuration() - e.GetStart()) / JDYear)
+		}
+	} else {
+		if doc.PrintOptions.Time && !doc.PrintOptions.YearOnly {
+			text += fmt.Sprintf(" - %3s", "_")
+		}
+		if doc.PrintOptions.YearOnly {
+			text += fmt.Sprintf("%4s", "_")
+		} else {
+			text += fmt.Sprintf("%10s", "_")
+		}
+		text += doc.PrintTitle(e)
+	}
+	text += doc.PrintGPS(e)
+	text += doc.PrintDescription(e)
+
 	return text
 }

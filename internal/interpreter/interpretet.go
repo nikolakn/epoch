@@ -208,14 +208,14 @@ help
 			title := getStringInput("title")
 			events := doc.SearchEventsByTitle(title)
 			for _, e := range events {
-				println(e.GetEpoch().Id, e.GetEpoch().Title)
+				fmt.Println(e)
 			}
 		}
 		if line == "search des" || line == "sd" {
 			title := getStringInput("description")
 			events := doc.SearchEventsByDescription(title)
 			for _, e := range events {
-				println(e.GetEpoch().Id, e.GetEpoch().Title)
+				fmt.Println(e)
 			}
 		}
 

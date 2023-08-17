@@ -6,91 +6,169 @@
 	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	  <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	  <title>Epoch</title>
+	  <style>
+	  body {
+		font-family: "lato", sans-serif;
+	  }
+	  
+	  .container {
+		max-width: 90%;
+		margin-left: auto;
+		margin-right: auto;
+		padding-left: 10px;
+		padding-right: 10px;
+	  }
+	  
+	  h2 {
+		font-size: 26px;
+		margin: 20px 0;
+		text-align: center;
+	  }
+	  h2 small {
+		font-size: 0.5em;
+	  }
+	  
+	  .responsive-table li {
+		border-radius: 4px;
+		padding: 16px 16px;
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 16px;
+		font-size: 12px;
+	  }
+	  .responsive-table .table-header {
+		background-color: #95a5a6;
+		font-size: 14px;
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+	  }
+	  .responsive-table .table-row {
+		background-color: #ffffff;
+		box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+	  }
+	  .responsive-table .col-1 {
+		flex-basis: 10%;
+	  }
+	  .responsive-table .col-2 {
+		flex-basis: 10%;
+	  }
+	  .responsive-table .col-3 {
+		flex-basis: 20%;
+	  }
+	  .responsive-table .col-4 {
+		flex-basis: 20%;
+	  }
+	  .responsive-table .col-5 {
+		flex-basis:20%;
+	  }
+	  .responsive-table .col-6 {
+		flex-basis: 20%;
+	  }
+	  @media all and (max-width: 767px) {
+		.responsive-table .table-header {
+		  display: none;
+		}
+		.responsive-table li {
+		  display: block;
+		}
+		.responsive-table .col {
+		  flex-basis: 100%;
+		}
+		.responsive-table .col {
+		  display: flex;
+		  padding: 5px 0;
+		}
+		.responsive-table .col:before {
+		  color: #6c7a89;
+		  padding-right: 10px;
+		  content: attr(data-label);
+		  flex-basis: 20%;
+		  text-align: left;
+		}
+	  }
+	  </style>
 	</head>
+
 	<body>
+	<div class="container">
+	<h2>Epoch</h2>
+	<ul class="responsive-table">
+		<li class="table-header">
+		<div class="col col-1">Start</div>
+		<div class="col col-2">End</div>
+		<div class="col col-3">Duration</div>
+		<div class="col col-4">Name</div>
+		<div class="col col-5">Description</div>
+		<div class="col col-6">Url</div>
+		</li>
 
-	
-	<table>
-	<tr>
-	  <th>Start</th>
-	  <th>End</th>
-	  <th>Duration</th>
-	  <th>Name</th>
-	  <th>Description</th>
-	  <th>Url</th>
-	</tr>
-	<tr>
-<td> 1.9.1939</td>
-<td> 2.9.1945</td>
-<td>6.00 years ~(6 years and 0.05 months)
-</td>
-<td>WWII</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td> 22.6.1941</td>
-<td> 7.1.1942</td>
-<td>0.55 years ~(0 years and 6.55 months)
-</td>
-<td>Operation Barbarossa</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td> 9.9.1941</td>
-<td></td>
-<td></td>
-<td>Siege of Leningrad</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td> 30.9.1941</td>
-<td></td>
-<td></td>
-<td>Operation Typhoon</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td> 22.8.1942</td>
-<td> 2.2.1943</td>
-<td>0.45 years ~(0 years and 5.39 months)
-</td>
-<td>Battle of Stalingrad</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td> 19.11.1942</td>
-<td></td>
-<td></td>
-<td>Stalingrad counter-offensives</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td> 22.6.1944</td>
-<td> 19.8.1944</td>
-<td>0.16 years ~(0 years and 1.91 months)
-</td>
-<td>Operation Bagration</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td> 16.4.1945</td>
-<td> 2.5.1945</td>
-<td>0.04 years ~(0 years and 0.53 months)
-</td>
-<td>Battle of Berlin</td>
-<td>he Battle of Berlin, designated as the Berlin Strategic Offensive Operation by the Soviet Union, and also known as the Fall of Berlin, was one of the last major offensives of the European theatre of World War II.[f]</td>
-<td></td>
-</tr>
+		 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 1.9.1939</div>
+		<div class='col col-2' data-label='End'> 2.9.1945</div>
+		<div class='col col-3' data-label='Duration'>6.0 y ~(6 y 0.0 m)</div>
+		<div class='col col-4' data-label='Name'>WWII</div>
+		<div class='col col-5' data-label='Description'></div>
+		<div class='col col-6' data-label='Url'></div>
+	</li>
+	 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 22.6.1941</div>
+		<div class='col col-2' data-label='End'> 7.1.1942</div>
+		<div class='col col-3' data-label='Duration'>0.5 y ~(0 y 6.6 m)</div>
+		<div class='col col-4' data-label='Name'>Operation Barbarossa</div>
+		<div class='col col-5' data-label='Description'></div>
+		<div class='col col-6' data-label='Url'></div>
+	</li>
+	 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 9.9.1941</div>
+		<div class='col col-2' data-label='End'></div>
+		<div class='col col-3' data-label='Duration'></div>
+		<div class='col col-4' data-label='Name'>Siege of Leningrad</div>
+		<div class='col col-5' data-label='Description'></div>
+		<div class='col col-6' data-label='Url'></div>
+	</li>
+	 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 30.9.1941</div>
+		<div class='col col-2' data-label='End'></div>
+		<div class='col col-3' data-label='Duration'></div>
+		<div class='col col-4' data-label='Name'>Operation Typhoon</div>
+		<div class='col col-5' data-label='Description'></div>
+		<div class='col col-6' data-label='Url'></div>
+	</li>
+	 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 22.8.1942</div>
+		<div class='col col-2' data-label='End'> 2.2.1943</div>
+		<div class='col col-3' data-label='Duration'>0.4 y ~(0 y 5.4 m)</div>
+		<div class='col col-4' data-label='Name'>Battle of Stalingrad</div>
+		<div class='col col-5' data-label='Description'></div>
+		<div class='col col-6' data-label='Url'></div>
+	</li>
+	 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 19.11.1942</div>
+		<div class='col col-2' data-label='End'></div>
+		<div class='col col-3' data-label='Duration'></div>
+		<div class='col col-4' data-label='Name'>Stalingrad counter-offensives</div>
+		<div class='col col-5' data-label='Description'></div>
+		<div class='col col-6' data-label='Url'></div>
+	</li>
+	 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 22.6.1944</div>
+		<div class='col col-2' data-label='End'> 19.8.1944</div>
+		<div class='col col-3' data-label='Duration'>0.2 y ~(0 y 1.9 m)</div>
+		<div class='col col-4' data-label='Name'>Operation Bagration</div>
+		<div class='col col-5' data-label='Description'></div>
+		<div class='col col-6' data-label='Url'></div>
+	</li>
+	 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 16.4.1945</div>
+		<div class='col col-2' data-label='End'> 2.5.1945</div>
+		<div class='col col-3' data-label='Duration'>0.0 y ~(0 y 0.5 m)</div>
+		<div class='col col-4' data-label='Name'>Battle of Berlin</div>
+		<div class='col col-5' data-label='Description'>he Battle of Berlin, designated as the Berlin Strategic Offensive Operation by the Soviet Union, and also known as the Fall of Berlin, was one of the last major offensives of the European theatre of World War II.[f]</div>
+		<div class='col col-6' data-label='Url'></div>
+	</li>
+	</ul>
+	</div>
 
-	</table>
-	
 	</body>
   </html>
   

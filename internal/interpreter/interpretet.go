@@ -39,26 +39,34 @@ func NewInterpreter(fileName string) {
 			return
 		}
 		if line == "help" || line == "h" || line == "?" {
-			fmt.Println("p; print\t-\tprint timeline")
-			fmt.Println("a; add\t\t-\tadd new event or epoch")
-			fmt.Println("ae; add event\t-\tadd new absolute event")
-			fmt.Println("are; add rel event\t-\tadd new relative event")
-			fmt.Println("aep; add epoch\t-\tadd new absolute epoch")
-			fmt.Println("arep; add rel epoch\t-\tadd new relative epoch")
-			fmt.Println("r; rename\t-\trename event or epoch")
-			fmt.Println("d; des\t\t-\tchange description of event or epoch")
-			fmt.Println("m; move\t\t-\tchange start date of event or epoch")
-			fmt.Println("set\t\t-\tset print options")
-			fmt.Println("pd; print des\t-\tprint description of event or epoch")
-			fmt.Println("distance; dis\t-\tduration in years between start date of two event or epoch")
-			fmt.Println("location; gps\t-\tgeo location of  event or epoch")
-			fmt.Println("del; delate\t-\tdelate of event or epoch")
-
-			fmt.Println("url; u\t\t-\turl of event or epoch doc")
-			fmt.Println("importance; lvl\t-\tlevel of importance of event or epoch")
-			fmt.Println("type; \t\t-\ttype of event or epoch")
-
-			fmt.Println("q; exit; quit\t-\texit")
+			help :=
+				`
+help	
+	document
+		s | save                save
+		q | exit | quit         exit
+	add/delate
+		a    | add                 add new event or epoch 
+		del  | delate              delate of event or epoch 
+		ae   | 'add event'         add new absolute event 
+		are  | 'add rel event'     add new relative event 
+		aep  | 'add epoch '        add new absolute epoch 
+		arep | 'add rel epoch'     add new relative epoch 
+	print
+		p  | print              print timeline 
+		pd | 'print des'        print description of event or epoch 
+		distance | dis          duration in years between start date of two event or epoch 
+	edit
+		r | rename | title      rename event or epoch 
+		d | des                 change description of event or epoch 
+		m | move                change start date of event or epoch 
+		set                     set print options 
+		g | gps                 geo location; position for maps
+		url | u                 url of event or epoch doc 
+		importance | lvl        level of importance of event or epoch 
+		type                    type of event or epoch 
+	`
+			fmt.Println(help)
 			continue
 		}
 		if line == "save" || line == "s" {
@@ -107,7 +115,7 @@ func NewInterpreter(fileName string) {
 			}
 		}
 
-		if line == "gps" || line == "location" {
+		if line == "gps" || line == "g" {
 			event := getPArentEventByTitleorId(doc)
 			if event != nil {
 				l1 := getfloat64("latitude")
@@ -116,7 +124,7 @@ func NewInterpreter(fileName string) {
 			}
 		}
 
-		if line == "rename" || line == "r" {
+		if line == "rename" || line == "r" || line == "title" {
 			event := getPArentEventByTitleorId(doc)
 			if event != nil {
 				t := getStringInput("title")
@@ -131,7 +139,6 @@ func NewInterpreter(fileName string) {
 					doc.MoveStartRel(event, rel)
 					if event.GetDuration() != 0 {
 						event.SetEnd(rel + event.GetDuration())
-
 					}
 				} else {
 					d, m, y := getDateInput(doc.PrintOptions.YearOnly)
@@ -143,7 +150,6 @@ func NewInterpreter(fileName string) {
 					doc.MoveStartAps(event, start)
 					if event.GetDuration() != 0 {
 						event.SetEnd(event.GetDuration())
-
 					}
 				}
 			}

@@ -64,9 +64,9 @@ func (doc *Document) ExportHtml(file string) {
 			body += "\t\t<div class='col col-6' data-label='Url'></div>\n"
 		}
 		if e.GetEpoch().GPS.Latitude != 0 {
-			body += "\t\t<div class='col col-7' data-label='Url'><a target='_blank' rel='noopener' href='https://www.osmap.uk/#10/" + e.GetEpoch().GPS.PrintForMAp() + "'>map</a></div>\n"
+			body += "\t\t<div class='col col-7' data-label='Map'><a target='_blank' rel='noopener' href='https://www.osmap.uk/#10/" + e.GetEpoch().GPS.PrintForMAp() + "'>map</a></div>\n"
 		} else {
-			body += "\t\t<div class='col col-7' data-label='Url'></div>\n"
+			body += "\t\t<div class='col col-7' data-label='Map'></div>\n"
 		}
 		body += "\t</li>\n"
 

@@ -22,7 +22,7 @@ func main() {
 		YearOnly: false,
 		Time:     false,
 		Duration: true,
-		GPS:      false,
+		GPS:      true,
 		Id:       true,
 	}
 

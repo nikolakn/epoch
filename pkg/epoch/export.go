@@ -57,7 +57,11 @@ func (doc *Document) ExportHtml(file string) {
 		}
 		body += "\t\t<div class='col col-4' data-label='Name'>" + fmt.Sprintf("%s", e.GetEpoch().Title) + "</div>\n"
 		body += "\t\t<div class='col col-5' data-label='Description'>" + fmt.Sprintf("%s", e.GetEpoch().Description) + "</div>\n"
-		body += "\t\t<div class='col col-6' data-label='Url'>" + fmt.Sprintf("%s", e.GetEpoch().Url) + "</div>\n"
+		if e.GetEpoch().Url != "" {
+			body += "\t\t<div class='col col-6' data-label='Url'><a href='" + fmt.Sprintf("%s", e.GetEpoch().Url) + "'>link</a></div>\n"
+		} else {
+			body += "\t\t<div class='col col-6' data-label='Url'></div>\n"
+		}
 
 		body += "\t</li>\n"
 
@@ -120,16 +124,16 @@ func (doc *Document) ExportHtml(file string) {
 		flex-basis: 10%;
 	  }
 	  .responsive-table .col-3 {
-		flex-basis: 20%;
+		flex-basis: 15%;
 	  }
 	  .responsive-table .col-4 {
-		flex-basis: 20%;
+		flex-basis: 25%;
 	  }
 	  .responsive-table .col-5 {
-		flex-basis:20%;
+		flex-basis:35%;
 	  }
 	  .responsive-table .col-6 {
-		flex-basis: 20%;
+		flex-basis: 5%;
 	  }
 	  @media all and (max-width: 767px) {
 		.responsive-table .table-header {

@@ -4,7 +4,6 @@ import (
 	"epoch/internal/interpreter"
 	"epoch/pkg/epoch"
 	"fmt"
-	"log"
 	"path/filepath"
 
 	cmd "epoch/command"
@@ -13,7 +12,7 @@ import (
 func main() {
 	file, outFile, print_olny, _ := cmd.Execute()
 	if file == "" {
-		log.Println("invalid file name")
+		fmt.Println("invalid file name, exiting!")
 		return
 	}
 

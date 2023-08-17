@@ -2,6 +2,7 @@ package command
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/spf13/cobra"
 )
@@ -22,21 +23,13 @@ var (
 		},
 	}
 
-	tryCmd = &cobra.Command{
-		Use:   "try",
-		Short: "Try and possibly fail at something",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			fmt.Println("try funkcija")
-			return nil
-		},
-	}
-
 	versionCmd = &cobra.Command{
 		Use:   "version",
 		Short: "version",
 		Long:  `version`,
 		Run: func(cmd *cobra.Command, args []string) {
 			fmt.Println("Epoch v0.1")
+			os.Exit(0)
 		},
 	}
 
@@ -46,6 +39,7 @@ var (
 		Long:  `program author`,
 		Run: func(cmd *cobra.Command, args []string) {
 			fmt.Println("Nikola Knezevic")
+			os.Exit(0)
 		},
 	}
 )

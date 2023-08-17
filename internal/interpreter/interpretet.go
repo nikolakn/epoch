@@ -392,7 +392,6 @@ func getDateInput(yearsOnly bool) (int, int, int) {
 func getTimeInput() (int, int) {
 	for true {
 		var h, m int
-
 		fmt.Print("hour > ")
 		_, err := fmt.Scanf("%2d\n", &h)
 		if err != nil {
@@ -405,7 +404,6 @@ func getTimeInput() (int, int) {
 			fmt.Println("error: ", err2)
 			continue
 		}
-
 		return h, m
 	}
 	return 0, 0

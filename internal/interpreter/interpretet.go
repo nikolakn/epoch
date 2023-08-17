@@ -208,14 +208,14 @@ help
 			title := getStringInput("title")
 			events := doc.SearchEventsByTitle(title)
 			for _, e := range events {
-				fmt.Println(e)
+				fmt.Println(doc.PrintEvent(e))
 			}
 		}
 		if line == "search des" || line == "sd" {
 			title := getStringInput("description")
 			events := doc.SearchEventsByDescription(title)
 			for _, e := range events {
-				fmt.Println(e)
+				fmt.Println(doc.PrintEvent(e))
 			}
 		}
 
@@ -360,7 +360,7 @@ func getPArentEventByTitleorId(doc *epoch.Document) epoch.Event {
 	if id, err := strconv.Atoi(string(text)); err == nil {
 		event := doc.GetEventbuId(id)
 		if event != nil {
-			fmt.Println("Selected:", event.GetEpoch().Title)
+			fmt.Println(doc.PrintEvent(event))
 		}
 		return event
 	}

@@ -199,9 +199,10 @@ func (doc *Document) DeleteEvent(ev Event) {
 }
 
 func (doc *Document) SearchEventsByTitle(title string) []Event {
+
 	events := make([]Event, 0)
 	for id, e := range doc.Events {
-		if strings.Contains(e.GetEpoch().Title, title) {
+		if strings.Contains(strings.ToLower(e.GetEpoch().Title), strings.ToLower(title)) {
 			e.GetEpoch().Id = id
 			events = append(events, e)
 		}
@@ -212,7 +213,7 @@ func (doc *Document) SearchEventsByTitle(title string) []Event {
 func (doc *Document) SearchEventsByDescription(des string) []Event {
 	events := make([]Event, 0)
 	for id, e := range doc.Events {
-		if strings.Contains(e.GetEpoch().Description, des) {
+		if strings.Contains(strings.ToLower(e.GetEpoch().Description), strings.ToLower(des)) {
 			e.GetEpoch().Id = id
 			events = append(events, e)
 		}

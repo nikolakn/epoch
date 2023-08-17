@@ -8,6 +8,7 @@ import (
 	"math"
 	"os"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -244,7 +245,8 @@ func getStringInput(msg string) string {
 		fmt.Println("error: ", err4)
 		return ""
 	}
-	return string(text)
+	s := strings.TrimSpace(string(text))
+	return string(s)
 }
 
 func getfloat64(msg string) float64 {
@@ -303,9 +305,15 @@ func getPArentEventByTitleorId(doc *epoch.Document) epoch.Event {
 	}
 	if id, err := strconv.Atoi(string(text)); err == nil {
 		event := doc.GetEventbuId(id)
+		if event != nil {
+			fmt.Println("Selected:", event.GetEpoch().Title)
+		}
 		return event
 	}
 	event := doc.GetEventbyTitle(string(text))
+	if event != nil {
+		fmt.Println("Selected:", event.GetEpoch().Title)
+	}
 	return event
 }
 

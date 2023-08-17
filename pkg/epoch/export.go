@@ -23,6 +23,7 @@ func (doc *Document) ExportHtml(file string) {
 		<div class="col col-4">Name</div>
 		<div class="col col-5">Description</div>
 		<div class="col col-6">Url</div>
+		<div class="col col-7">Map</div>
 		</li>
 
 	`
@@ -58,11 +59,15 @@ func (doc *Document) ExportHtml(file string) {
 		body += "\t\t<div class='col col-4' data-label='Name'>" + fmt.Sprintf("%s", e.GetEpoch().Title) + "</div>\n"
 		body += "\t\t<div class='col col-5' data-label='Description'>" + fmt.Sprintf("%s", e.GetEpoch().Description) + "</div>\n"
 		if e.GetEpoch().Url != "" {
-			body += "\t\t<div class='col col-6' data-label='Url'><a href='" + fmt.Sprintf("%s", e.GetEpoch().Url) + "'>link</a></div>\n"
+			body += "\t\t<div class='col col-6' data-label='Url'><a target='_blank' rel='noopener' href='" + fmt.Sprintf("%s", e.GetEpoch().Url) + "'>link</a></div>\n"
 		} else {
 			body += "\t\t<div class='col col-6' data-label='Url'></div>\n"
 		}
-
+		if e.GetEpoch().GPS.Latitude != 0 {
+			body += "\t\t<div class='col col-7' data-label='Url'><a target='_blank' rel='noopener' href='https://www.osmap.uk/#10/" + e.GetEpoch().GPS.PrintForMAp() + "'>map</a></div>\n"
+		} else {
+			body += "\t\t<div class='col col-7' data-label='Url'></div>\n"
+		}
 		body += "\t</li>\n"
 
 	}
@@ -127,12 +132,15 @@ func (doc *Document) ExportHtml(file string) {
 		flex-basis: 15%;
 	  }
 	  .responsive-table .col-4 {
-		flex-basis: 25%;
+		flex-basis: 20%;
 	  }
 	  .responsive-table .col-5 {
 		flex-basis:35%;
 	  }
 	  .responsive-table .col-6 {
+		flex-basis: 5%;
+	  }
+	  .responsive-table .col-7 {
 		flex-basis: 5%;
 	  }
 	  @media all and (max-width: 767px) {

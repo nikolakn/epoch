@@ -54,3 +54,8 @@ func (g GPS) String() string {
 	t := fmt.Sprintf("gps: %f , %f", g.Latitude, g.Longitude)
 	return t
 }
+
+func (g GPS) PrintForMAp() string {
+	t := fmt.Sprintf("%f/%f", g.Latitude, g.Longitude)
+	return t
+}

@@ -21,6 +21,78 @@
     {
       "id": 1,
       "parent_id": -1,
+      "start": 2429533.5,
+      "Description": "",
+      "titile": "WARSAW CAPTURED",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 0
+    },
+    {
+      "id": 2,
+      "parent_id": -1,
+      "start": 2429727.5,
+      "Description": "",
+      "titile": "NORWAY INVADED",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 0
+    },
+    {
+      "id": 3,
+      "parent_id": -1,
+      "start": 2429790.5,
+      "Description": "Italy invades southern France on June 21.",
+      "titile": "Italy enters the war",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 0
+    },
+    {
+      "id": 4,
+      "parent_id": -1,
+      "start": 2430090.5,
+      "Description": "Germany, Italy, and Hungary invade Yugoslavia and, together with Bulgaria, dismember it. Yugoslavia surrenders on April 17. Germany and Bulgaria invade Greece in support of the Italians. Resistance in Greece ceases in early June 1941.",
+      "titile": "Germany, Italy, and Hungary invade Yugoslavia",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 2430155.5
+    },
+    {
+      "id": 5,
+      "parent_id": -1,
       "start": 2430167.5,
       "Description": "",
       "titile": "Operation Barbarossa",
@@ -37,7 +109,7 @@
       "End": 2430367.000011574
     },
     {
-      "id": 2,
+      "id": 6,
       "parent_id": -1,
       "start": 2430246.5,
       "Description": "",
@@ -48,14 +120,14 @@
       "importance": 0,
       "y": 0,
       "gps": {
-        "latitude": 0,
-        "longitude": 0
+        "latitude": 59.9316,
+        "longitude": 30.1218
       },
       "url": "",
       "End": 0
     },
     {
-      "id": 3,
+      "id": 7,
       "parent_id": -1,
       "start": 2430267.5,
       "Description": "",
@@ -73,7 +145,43 @@
       "End": 0
     },
     {
-      "id": 4,
+      "id": 8,
+      "parent_id": -1,
+      "start": 2430335.5,
+      "Description": "The Pacific War, sometimes called the Asia–Pacific War,[44] was the theater of World War II that was fought in eastern Asia, the Pacific Ocean, the Indian Ocean, and Oceania. It was geographically the largest theater of the war, including the vast Pacific Ocean theater, the South West Pacific theater, the Second Sino-Japanese War, and the Soviet–Japanese War.",
+      "titile": "Pacific War",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "https://en.wikipedia.org/wiki/Pacific_War",
+      "End": 2431700.5
+    },
+    {
+      "id": 9,
+      "parent_id": -1,
+      "start": 2430335.5,
+      "Description": "The attack on Pearl Harbor[nb 3][11] was a surprise military strike by the Imperial Japanese Navy Air Service upon the United States against the U.S. naval base at Pearl Harbor in Honolulu, Hawaii, just before 8:00 a.m. (local time) on Sunday, December 7, 1941. The United States was a neutral country at the time; the attack led to its formal entry into World War II on the side of the Allies the next day. The Japanese military leadership referred to the attack as the Hawaii Operation and Operation AI,[12][nb 4] and as Operation Z during its planning.",
+      "titile": "Attack on Pearl Harbor",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 21.3092,
+        "longitude": -157.9175
+      },
+      "url": "https://en.wikipedia.org/wiki/Attack_on_Pearl_Harbor",
+      "End": 0
+    },
+    {
+      "id": 10,
       "parent_id": -1,
       "start": 2430593.5,
       "Description": "",
@@ -91,7 +199,7 @@
       "End": 2430757.5
     },
     {
-      "id": 5,
+      "id": 11,
       "parent_id": -1,
       "start": 2430682.5,
       "Description": "",
@@ -109,7 +217,43 @@
       "End": 0
     },
     {
-      "id": 6,
+      "id": 12,
+      "parent_id": -1,
+      "start": 2431034.5,
+      "Description": "",
+      "titile": "Soviet troops liberate Kiev.",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 0
+    },
+    {
+      "id": 13,
+      "parent_id": -1,
+      "start": 2431247.5,
+      "Description": " British, US, and Canadian troops successfully land on the Normandy beaches of France, opening a “Second Front” against the Germans.",
+      "titile": "D-day",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 49.4436,
+        "longitude": -0.4779
+      },
+      "url": "https://en.wikipedia.org/wiki/Normandy_landings",
+      "End": 0
+    },
+    {
+      "id": 14,
       "parent_id": -1,
       "start": 2431263.5,
       "Description": "",
@@ -127,11 +271,11 @@
       "End": 2431321.5
     },
     {
-      "id": 7,
+      "id": 15,
       "parent_id": -1,
-      "start": 2431561.5,
-      "Description": "he Battle of Berlin, designated as the Berlin Strategic Offensive Operation by the Soviet Union, and also known as the Fall of Berlin, was one of the last major offensives of the European theatre of World War II.[f]",
-      "titile": "Battle of Berlin",
+      "start": 2431266.5,
+      "Description": "",
+      "titile": "Allied forces break out of the Normandy beachhead ",
       "relative": false,
       "end_relative": false,
       "type": 0,
@@ -142,7 +286,115 @@
         "longitude": 0
       },
       "url": "",
+      "End": 0
+    },
+    {
+      "id": 16,
+      "parent_id": -1,
+      "start": 2431337.5,
+      "Description": "",
+      "titile": "Finland agrees to sign an armistice with the Soviet Union",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 0
+    },
+    {
+      "id": 17,
+      "parent_id": -1,
+      "start": 2431440.5,
+      "Description": "",
+      "titile": "Battle of the Bulge start",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 0
+    },
+    {
+      "id": 18,
+      "parent_id": -1,
+      "start": 2431558.5,
+      "Description": "",
+      "titile": "Soviet forces capture Vienna",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 0
+    },
+    {
+      "id": 19,
+      "parent_id": -1,
+      "start": 2431561.5,
+      "Description": "he Battle of Berlin, designated as the Berlin Strategic Offensive Operation by the Soviet Union, and also known as the Fall of Berlin, was one of the last major offensives of the European theatre of World War II.[f]",
+      "titile": "Battle of Berlin",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 52.4748,
+        "longitude": 13.4624
+      },
+      "url": "https://en.wikipedia.org/wiki/Battle_of_Berlin",
       "End": 2431577.5
+    },
+    {
+      "id": 20,
+      "parent_id": -1,
+      "start": 2431575.5,
+      "Description": "",
+      "titile": "Hitler commits suicide",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 0
+    },
+    {
+      "id": 21,
+      "parent_id": -1,
+      "start": 2431673.5,
+      "Description": "On 6 and 9 August 1945, the United States detonated two atomic bombs over the Japanese cities of Hiroshima and Nagasaki. The bombings killed between 129,000 and 226,000 people, most of whom were civilians, and remain the only use of nuclear weapons in an armed conflict.",
+      "titile": "Atomic bombings of Hiroshima and Nagasaki",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 34.3145,
+        "longitude": 132.5349
+      },
+      "url": "https://en.wikipedia.org/wiki/Atomic_bombings_of_Hiroshima_and_Nagasaki",
+      "End": 0
     }
   ],
   "print_options": {

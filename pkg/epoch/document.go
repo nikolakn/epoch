@@ -3,6 +3,7 @@ package epoch
 import (
 	"fmt"
 	"sort"
+	"strings"
 	"time"
 
 	"epoch/internal/gps"
@@ -192,4 +193,26 @@ func (doc *Document) DeleteEvent(ev Event) {
 	}
 	doc.docSort()
 
+}
+
+func (doc *Document) SearchEventsByTitle(title string) []Event {
+	events := make([]Event, 0)
+	for id, e := range doc.Events {
+		if strings.Contains(e.GetEpoch().Title, title) {
+			e.GetEpoch().Id = id
+			events = append(events, e)
+		}
+	}
+	return events
+}
+
+func (doc *Document) SearchEventsByDescription(des string) []Event {
+	events := make([]Event, 0)
+	for id, e := range doc.Events {
+		if strings.Contains(e.GetEpoch().Description, des) {
+			e.GetEpoch().Id = id
+			events = append(events, e)
+		}
+	}
+	return events
 }

@@ -181,6 +181,21 @@ help
 			}
 		}
 
+		if line == "search title" || line == "st" {
+			title := getStringInput("title")
+			events := doc.SearchEventsByTitle(title)
+			for _, e := range events {
+				println(e.GetEpoch().Id, e.GetEpoch().Title)
+			}
+		}
+		if line == "search des" || line == "sd" {
+			title := getStringInput("description")
+			events := doc.SearchEventsByDescription(title)
+			for _, e := range events {
+				println(e.GetEpoch().Id, e.GetEpoch().Title)
+			}
+		}
+
 		if line == "add" || line == "a" {
 			fmt.Print("epoch or event(ev) (defoult event) > ")
 			userData, _, err := bufio.NewReader(os.Stdin).ReadLine()

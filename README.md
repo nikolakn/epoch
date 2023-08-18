@@ -68,4 +68,6 @@ inside a document, you can use commands:
 + p - to print timeline  
 + s - save  
 + q - exit
++ set zoom   - set zoom level in days
++ open html - open html doc in the browser
 + help,? - to look for other options  

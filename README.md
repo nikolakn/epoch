@@ -3,7 +3,8 @@
 Is a console app for creating timelines that can be exported to HTML or other formats  
 it also has an interactive console to interact with events and get various information  
 epoch internally uses Julian days for date time storing so it supports negative years for BC  
-
+ ![cli exaple](/assets/images/cli_example.png)
+ ![html export exaple](/assets/images/html_example.png)
 ## build
 
 ```bash

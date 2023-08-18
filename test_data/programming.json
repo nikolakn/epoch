@@ -1,0 +1,319 @@
+{
+  "events": [
+    {
+      "id": 0,
+      "parent_id": -1,
+      "start": 2394201.5,
+      "Description": "Ada Lovelace was a British aristocrat; unusually for a woman of her time, she was educated in mathematics and science. However, her contribution to the development of coding and computer languages is not that she invented a device that was the breakthrough of Charles Babbage in the 1820s with his Difference Machine. Instead, Lovelace created the very first machine algorithm in 1843.",
+      "titile": "Ada Lovelace",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 0
+    },
+    {
+      "id": 1,
+      "parent_id": -1,
+      "start": 2428168.5,
+      "Description": "Today, Alan Turing is famous for his work on cracking Nazi Germany’s Enigma code machine in 1939. But in 1936, Turing published a paper regarded as the founding piece on computer science. Turing came up with the concept of a universal machine. A machine that could follow instructions. He eventually turned this groundbreaking idea into a plan for a computer powered by electricity that could run programs.",
+      "titile": "Alan Turing",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 0
+    },
+    {
+      "id": 2,
+      "parent_id": -1,
+      "start": 2429629.5,
+      "Description": "Konrad Zuse created what is considered the first programming language for computers in the early 1940s. It was called Plankalkul, and it could store codes, enabling engineers to carry out routine, repetitive tasks far more efficiently and quickly.",
+      "titile": "Konrad Zuse",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 0
+    },
+    {
+      "id": 3,
+      "parent_id": -1,
+      "start": 2432917.5,
+      "Description": "The next big development was Assembly language, a computer programming language that simplified the instructions to make a computer function.",
+      "titile": "Assembly Language and Shortcode",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 0
+    },
+    {
+      "id": 4,
+      "parent_id": -1,
+      "start": 2435839.5,
+      "Description": "John Backus created FORmula TRANslation or FORTRAN back in 1957. Incredibly, this programming language from the 1950s is still used today in supercomputers and scientific and mathematical computations",
+      "titile": "Fortran",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 0
+    },
+    {
+      "id": 5,
+      "parent_id": -1,
+      "start": 2436204.5,
+      "Description": "An algorithmic language created by American and European scientists, ALGOL became the point of origin for world-renowned programming languages such as Pascal, Java, C, and C++.",
+      "titile": "ALGOL and LISP",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 0
+    },
+    {
+      "id": 6,
+      "parent_id": -1,
+      "start": 2436569.5,
+      "Description": "COBOL was developed by a team led by Dr. Grace Murray Hopper; COBOL stands for Common Business Oriented Language. It was designed for credit card transaction processors, traffic signals, and phone calls, and today is used in banking and gaming. Today’s virtual PBX system and other modern solutions to communication rest on the shoulders of programming languages like COBOL",
+      "titile": "COBOL",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 0
+    },
+    {
+      "id": 7,
+      "parent_id": -1,
+      "start": 2438395.5,
+      "Description": "",
+      "titile": "BASIC",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 0
+    },
+    {
+      "id": 8,
+      "parent_id": -1,
+      "start": 2441317.5,
+      "Description": "Alan Kay, Adele Goldberg, and Dan Ingalls developed Smalltalk at the Xerox Palo Alto Research Centre. It was designed to modify code. Its principles are present in today’s Java, Python, and Ruby and are used by companies like CrowdStrike and Logitech.",
+      "titile": "Smalltalk, C, and SQL",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 0
+    },
+    {
+      "id": 9,
+      "parent_id": -1,
+      "start": 2444239.5,
+      "Description": "",
+      "titile": "ADA",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 0
+    },
+    {
+      "id": 10,
+      "parent_id": -1,
+      "start": 2445335.5,
+      "Description": "Bjarne Stroustrup modified the C language at Bell Labs. The result was C++, which had some augmentations such as classes, templates, and virtual functions. C++ is now used in MS Office, Adobe Photoshop, and various types of high-performance software.",
+      "titile": "c++, Objective C",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 0
+    },
+    {
+      "id": 11,
+      "parent_id": -1,
+      "start": 2446796.5,
+      "Description": "Larry Wall developed PERL as a general-purpose, high-level language. He designed it for text editing, but today its primary use is in database applications, data processing, graphic programming, and system administration.",
+      "titile": "Perl",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 0
+    },
+    {
+      "id": 12,
+      "parent_id": -1,
+      "start": 2447892.5,
+      "Description": "Named after the American mathematician Haskell Brooks Curry. Haskell is a primarily mathematical programming language. Used in various industries that need to make complicated calculations, crunch numbers, and keep records.",
+      "titile": "Haskell",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 0
+    },
+    {
+      "id": 13,
+      "parent_id": -1,
+      "start": 2448257.5,
+      "Description": "The iconic British comedy act Monty Python inspired Python’s name. Guido Van Rossum developed this general-purpose, high-level language. Today Python is one of the most popular programming languages worldwide. Giants like Google and Spotify use it.",
+      "titile": "Python and Visual Basic",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 0
+    },
+    {
+      "id": 14,
+      "parent_id": -1,
+      "start": 2449718.5,
+      "Description": "Created by James Gosling in 1995, Java is one of the world’s most famous and popular programming languages. It’s a general-purpose, high-level language used in cell phones and parking machines.",
+      "titile": "Java, JavaScript, PHP",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 0
+    },
+    {
+      "id": 15,
+      "parent_id": -1,
+      "start": 2454832.5,
+      "Description": "Large software systems face various challenges, and Google developed Go to resolve them.",
+      "titile": "Go",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "",
+      "End": 0
+    },
+    {
+      "id": 16,
+      "parent_id": -1,
+      "start": 2457023.5,
+      "Description": "Rust is a multi-paradigm, general-purpose programming language that emphasizes performance, type safety, and concurrency. It enforces memory safety—ensuring that all references point to valid memory—without requiring the use of a garbage collector or reference counting present in other memory-safe languages. To simultaneously enforce memory safety and prevent concurrent data races, its \"borrow checker\" tracks the object lifetime of all references in a program during compilation. Rust borrows ideas from functional programming, including static types, immutability, higher-order functions, and algebraic data types. It is popular for systems programming.",
+      "titile": "Rust",
+      "relative": false,
+      "end_relative": false,
+      "type": 0,
+      "importance": 0,
+      "y": 0,
+      "gps": {
+        "latitude": 0,
+        "longitude": 0
+      },
+      "url": "https://en.wikipedia.org/wiki/Rust_(programming_language)",
+      "End": 0
+    }
+  ],
+  "print_options": {
+    "flags": true,
+    "yearonly": true,
+    "time": false,
+    "duration": true,
+    "gps": false,
+    "id_option": true,
+    "description": false
+  }
+}

@@ -6,6 +6,7 @@ import (
 	"log"
 	"math"
 	"os"
+	"strconv"
 )
 
 func (doc *Document) ExportJson(file string) {
@@ -28,6 +29,7 @@ func (doc *Document) ExportHtml(file string) {
 		</li>
 
 	`
+	var pre Event
 	for _, e := range doc.Events {
 		start := jd.JDToTime(e.GetStart())
 		end := jd.JDToTime(e.GetDuration())
@@ -49,6 +51,24 @@ func (doc *Document) ExportHtml(file string) {
 			end = jd.JDToTime(e.GetStart() + e.GetDuration())
 		}
 
+		if pre != nil && doc.PrintOptions.Zoom > 0 {
+			e2 := pre.GetStart()
+			e1 := e.GetStart()
+			diff := math.Abs(e2 - e1)
+			raz := int(diff / float64(doc.PrintOptions.Zoom))
+			years := diff / JDYear
+			months := 12.0 * years
+			dd := fmt.Sprintf("%.1f years", years)
+			if months < 1 {
+				dd = fmt.Sprintf("%0.1f days", diff)
+			} else if years < 1 {
+				dd = fmt.Sprintf("%0.1f months", months)
+			}
+			if raz*50 > 20 {
+				body += "\t\t<div style='align-items: center;justify-content: center;display: flex; height:" + strconv.Itoa(raz*50) + "px'>" + dd + "</div>\n"
+			}
+		}
+		pre = e
 		body += "\t <li class='table-row'>\n"
 		body += "\t\t<div class='col col-1' data-label='Start'>" + fmt.Sprintf(" %d.%d.%d", start.Day(), start.Month(), start.Year()) + "</div>\n"
 		if e.GetDuration() == 0 {

@@ -206,6 +206,7 @@
     "duration": true,
     "gps": true,
     "id_option": true,
-    "description": true
+    "description": true,
+    "zoom": 36500
   }
 }

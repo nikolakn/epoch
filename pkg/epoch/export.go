@@ -6,17 +6,24 @@ import (
 	"log"
 	"math"
 	"os"
+	"path/filepath"
 	"strconv"
+	"strings"
 )
 
 func (doc *Document) ExportJson(file string) {
 	doc.Savejson(file)
 }
 
+func fileNameStrip(fileName string) string {
+	return strings.TrimSuffix(filepath.Base(fileName), filepath.Ext(fileName))
+}
+
 func (doc *Document) ExportHtml(file string) {
 	var body string
+	zoomStr := strconv.Itoa(doc.PrintOptions.Zoom)
 	body += `<div class="container">
-	<h2>Epoch</h2>
+	<h2>Epoch '` + fileNameStrip(doc.FileName) + `' - zoom: ` + zoomStr + `</h2>
 	<ul class="responsive-table">
 		<li class="table-header">
 		<div class="col col-1">Start</div>

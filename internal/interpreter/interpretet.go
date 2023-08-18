@@ -51,6 +51,7 @@ help
 		q | exit | quit         exit
 		open map                oepn map in browser if gps exist for evet
 		open url                open url in browser if url exist for event
+		open html               export doc to html and open in browser
 	add/delate
 		a    | add                 add new event or epoch 
 		del  | delate              delate of event or epoch 
@@ -199,6 +200,11 @@ help
 					openbrowser(event.GetEpoch().Url)
 				}
 			}
+		}
+
+		if line == "open html" {
+			doc.ExportHtml("/tmp/epoch.html")
+			openbrowser("file:/tmp/epoch.html")
 		}
 
 		if line == "importance" || line == "lvl" {
@@ -539,7 +545,7 @@ func openbrowser(url string) {
 		err = fmt.Errorf("unsupported platform")
 	}
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 
 }

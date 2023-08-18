@@ -30,26 +30,35 @@ func (doc Document) PrintFlags(e Event) string {
 	}
 	ret := ""
 	if e.Relative() {
-		ret += "r"
+		ret += "R"
 
 	} else {
-		ret += "a"
-	}
-	if e.GetEpoch().Importance > 0 {
-		s2 := strconv.Itoa(e.GetEpoch().Importance)
-		ret += "_I" + s2
-	}
-	if e.GetEpoch().Type > 0 {
-		s2 := strconv.Itoa(e.GetEpoch().Type)
-		ret += "_T" + s2
+		ret += "A"
 	}
 	switch e.(type) {
 	case *EpochStruct:
-		ret += "_epoch"
+		ret += "_EP_"
 
 	case *EventStruct:
-		ret += "_event"
+		ret += "_E_"
 
+	}
+	if e.GetEpoch().Importance > 0 {
+		s2 := strconv.Itoa(e.GetEpoch().Importance)
+		ret += "I" + s2
+	}
+	if e.GetEpoch().Type > 0 {
+		s2 := strconv.Itoa(e.GetEpoch().Type)
+		ret += "T" + s2
+	}
+	if e.GetEpoch().GPS.Latitude != 0 {
+		ret += "G"
+	}
+	if e.GetEpoch().Url != "" {
+		ret += "U"
+	}
+	if e.GetEpoch().Description != "" {
+		ret += "D"
 	}
 
 	return ret + " "
@@ -129,7 +138,7 @@ func (doc Document) String() string {
 func (doc Document) PrintEvent(e Event) string {
 	text := ""
 	text += doc.PrintId(e.GetEpoch().Id)
-	text += fmt.Sprintf("%16s", doc.PrintFlags(e))
+	text += fmt.Sprintf("%12s", doc.PrintFlags(e))
 	text += doc.PrintStart(e)
 	if e.GetDuration() != 0 {
 		if e.Relative() || e.EndRelative() {

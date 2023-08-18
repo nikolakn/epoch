@@ -6,9 +6,12 @@ import (
 	jd "epoch/internal/julian"
 	"epoch/pkg/epoch"
 	"fmt"
+	"log"
 	"math"
 	"os"
+	"os/exec"
 	"regexp"
+	"runtime"
 	"strconv"
 	"strings"
 	"time"
@@ -46,6 +49,8 @@ help
 	document
 		s | save                save
 		q | exit | quit         exit
+		open map                oepn map in browser if gps exist for evet
+		open url                open url in browser if url exist for event
 	add/delate
 		a    | add                 add new event or epoch 
 		del  | delate              delate of event or epoch 
@@ -63,6 +68,8 @@ help
 		d | des                 change description of event or epoch 
 		m | move                change start date of event or epoch 
 		set                     set print options 
+		show (flags, id, time, year only, gps, duration, description)
+		hide (flags, id, time, year only, gps, duration, description)
 		g | gps                 geo location; position for maps
 		url | u                 url of event or epoch doc 
 		importance | lvl        level of importance of event or epoch 
@@ -106,8 +113,52 @@ help
 			doc.PrintOptions.Duration = yesNo("display duration")
 			doc.PrintOptions.YearOnly = yesNo("display year only")
 			doc.PrintOptions.Description = yesNo("display description")
-
 		}
+
+		if line == "show flags" {
+			doc.PrintOptions.Flags = true
+		}
+		if line == "show id" {
+			doc.PrintOptions.Id = true
+		}
+		if line == "show time" {
+			doc.PrintOptions.Time = true
+		}
+		if line == "show gps" {
+			doc.PrintOptions.GPS = true
+		}
+		if line == "show duration" {
+			doc.PrintOptions.Duration = true
+		}
+		if line == "show year only" {
+			doc.PrintOptions.YearOnly = true
+		}
+		if line == "show description" {
+			doc.PrintOptions.Description = true
+		}
+
+		if line == "hide flags" {
+			doc.PrintOptions.Flags = false
+		}
+		if line == "hide id" {
+			doc.PrintOptions.Id = false
+		}
+		if line == "hide time" {
+			doc.PrintOptions.Time = false
+		}
+		if line == "hide gps" {
+			doc.PrintOptions.GPS = false
+		}
+		if line == "hide duration" {
+			doc.PrintOptions.Duration = false
+		}
+		if line == "hide year only" {
+			doc.PrintOptions.YearOnly = false
+		}
+		if line == "hide description" {
+			doc.PrintOptions.Description = false
+		}
+
 		if line == "des" || line == "d" {
 			event := getPArentEventByTitleorId(doc)
 			if event != nil {
@@ -123,6 +174,33 @@ help
 				event.GetEpoch().Url = t
 			}
 		}
+
+		if line == "open map" {
+			event := getPArentEventByTitleorId(doc)
+			if event == nil {
+				fmt.Println("event does not exist")
+			} else {
+				if event.GetEpoch().GPS.Latitude == 0 {
+					fmt.Println("location data for event missing, use gps command to set locatio data for map")
+				} else {
+					openbrowser("https://www.osmap.uk/#10/" + event.GetEpoch().GPS.PrintForMAp())
+				}
+			}
+		}
+
+		if line == "open url" {
+			event := getPArentEventByTitleorId(doc)
+			if event == nil {
+				fmt.Println("event does not exist")
+			} else {
+				if event.GetEpoch().Url == "" {
+					fmt.Println("Url for event missing, use url command to set link")
+				} else {
+					openbrowser(event.GetEpoch().Url)
+				}
+			}
+		}
+
 		if line == "importance" || line == "lvl" {
 			event := getPArentEventByTitleorId(doc)
 			if event != nil {
@@ -445,4 +523,23 @@ func getTimeInput() (int, int) {
 		return h, m
 	}
 	return 0, 0
+}
+
+func openbrowser(url string) {
+	var err error
+
+	switch runtime.GOOS {
+	case "linux":
+		err = exec.Command("xdg-open", url).Start()
+	case "windows":
+		err = exec.Command("rundll32", "url.dll,FileProtocolHandler", url).Start()
+	case "darwin":
+		err = exec.Command("open", url).Start()
+	default:
+		err = fmt.Errorf("unsupported platform")
+	}
+	if err != nil {
+		log.Fatal(err)
+	}
+
 }

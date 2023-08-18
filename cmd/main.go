@@ -9,14 +9,6 @@ import (
 	cmd "epoch/command"
 )
 
-/*
-TODO
-convert event to epoch and epoch to event
-convert relative to apsolute
-print with real duration
-print show epoch lenth with vertical line
-*/
-
 func main() {
 	file, outFile, print_olny, _ := cmd.Execute()
 	if file == "" {

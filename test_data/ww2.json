@@ -422,6 +422,7 @@
     "duration": true,
     "gps": false,
     "id_option": true,
-    "description": false
+    "description": false,
+    "zoom": 30
   }
 }

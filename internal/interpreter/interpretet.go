@@ -97,9 +97,20 @@ help
 			s := jd.TimeToJD(start)
 			e := jd.TimeToJD(end)
 			fmt.Println(s, e)
+			var pre epoch.Event
 			for _, event := range doc.Events {
 				date := event.GetStart()
+
 				if date >= s && date < e {
+					if pre != nil && doc.PrintOptions.Zoom > 0 {
+						e2 := pre.GetStart()
+						e1 := event.GetStart()
+						diff := math.Abs(e2 - e1)
+						raz := int(diff / float64(doc.PrintOptions.Zoom))
+						fmt.Print(strings.Repeat("|\n", raz))
+
+					}
+					pre = event
 					fmt.Println(doc.PrintEvent(event))
 				}
 			}
@@ -158,6 +169,11 @@ help
 		}
 		if line == "hide description" {
 			doc.PrintOptions.Description = false
+		}
+
+		if line == "set zoom" {
+			zoom := getInt("zoom (one line represent distance in days for example zoom=30 one line is 30 days)")
+			doc.PrintOptions.Zoom = zoom
 		}
 
 		if line == "des" || line == "d" {
@@ -282,9 +298,16 @@ help
 			if event1 != nil && event2 != nil {
 				d := math.Abs(event2.GetStart() - event1.GetStart())
 				years := float64(d) / epoch.JDYear
-				iy := int(years)
-				y_ostatak := 12.0 * float64(years-float64(iy))
-				fmt.Printf("diffrence in years %f years ~(%d years and %0.2f months)\n", years, iy, y_ostatak)
+				months := 12.0 * years
+
+				d2 := fmt.Sprintf("%.2f years", years)
+				if months < 1 {
+					d2 = fmt.Sprintf("%0.2f days", d)
+				} else if years < 1 {
+					d2 = fmt.Sprintf("%0.2f months", months)
+				}
+				fmt.Printf("diffrence %s\n", d2)
+
 			}
 		}
 

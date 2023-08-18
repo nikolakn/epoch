@@ -3,19 +3,11 @@ package epoch
 import (
 	jd "epoch/internal/julian"
 	"fmt"
+	"math"
 	"strconv"
+	"strings"
 	"time"
 )
-
-type PrintOptions struct {
-	Flags       bool `json:"flags"`
-	YearOnly    bool `json:"yearonly"`
-	Time        bool `json:"time"`
-	Duration    bool `json:"duration"`
-	GPS         bool `json:"gps"`
-	Id          bool `json:"id_option"`
-	Description bool `json:"description"`
-}
 
 func (doc Document) PrintId(index int) string {
 	if !doc.PrintOptions.Id {
@@ -136,9 +128,19 @@ func (doc Document) PrintDescription(e Event) string {
 
 func (doc Document) String() string {
 	text := ""
+	var pre Event
 	for _, e := range doc.Events {
+		if pre != nil && doc.PrintOptions.Zoom > 0 {
+			e2 := pre.GetStart()
+			e1 := e.GetStart()
+			diff := math.Abs(e2 - e1)
+			raz := int(diff / float64(doc.PrintOptions.Zoom))
+			text += strings.Repeat("|\n", raz)
+
+		}
 		text += doc.PrintEvent(e)
 		text += "\n"
+		pre = e
 	}
 	return text
 }

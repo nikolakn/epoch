@@ -16,6 +16,17 @@ type Document struct {
 	FileName     string
 }
 
+type PrintOptions struct {
+	Flags       bool `json:"flags"`
+	YearOnly    bool `json:"yearonly"`
+	Time        bool `json:"time"`
+	Duration    bool `json:"duration"`
+	GPS         bool `json:"gps"`
+	Id          bool `json:"id_option"`
+	Description bool `json:"description"`
+	Zoom        int  `json:"zoom"`
+}
+
 func NewDocument(po PrintOptions, fileName string) *Document {
 	doc := &Document{
 		Events: make([]Event, 0),

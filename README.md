@@ -63,8 +63,9 @@ edit document
 ```
 
 
-inside a document, you can use commands  
-p - to print timeline  
-s - save  
-q - exit  
-help - to look for other options  
+inside a document, you can use commands:
+
++ p - to print timeline  
++ s - save  
++ q - exit
++ help,? - to look for other options  

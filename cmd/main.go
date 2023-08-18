@@ -12,8 +12,8 @@ import (
 func main() {
 	file, outFile, print_olny, _ := cmd.Execute()
 	if file == "" {
-		fmt.Println("invalid file name, exiting!")
-		return
+		fmt.Println("invalid file name, making tmp file tmp_epoch.json!")
+		file = "tmp_epoch.json"
 	}
 
 	po := epoch.PrintOptions{

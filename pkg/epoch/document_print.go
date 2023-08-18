@@ -21,7 +21,7 @@ func (doc Document) PrintId(index int) string {
 	if !doc.PrintOptions.Id {
 		return ""
 	}
-	return fmt.Sprintf("%-4d", index)
+	return fmt.Sprintf("\t%-4d", index)
 
 }
 func (doc Document) PrintFlags(e Event) string {
@@ -82,7 +82,7 @@ func (doc Document) PrintStart(e Event) string {
 
 }
 func (doc Document) PrintTitle(e Event) string {
-	return fmt.Sprintf("\t%-25.22s", e.GetEpoch().Title)
+	return fmt.Sprintf("%-25.22s", e.GetEpoch().Title)
 
 }
 
@@ -90,7 +90,15 @@ func (doc Document) PrintDuration(duration float64) string {
 	if !doc.PrintOptions.Duration {
 		return ""
 	}
-	return fmt.Sprintf("\t( %.2f years )", duration)
+	years := duration / JDYear
+	months := 12.0 * years
+	if months < 1 {
+		return fmt.Sprintf("\t( %.2f days )", duration)
+	}
+	if years < 1 {
+		return fmt.Sprintf("\t( %.2f months )", months)
+	}
+	return fmt.Sprintf("\t( %.2f years )", years)
 }
 
 func (doc Document) PrintEnd(end time.Time) string {
@@ -137,20 +145,22 @@ func (doc Document) String() string {
 
 func (doc Document) PrintEvent(e Event) string {
 	text := ""
-	text += doc.PrintId(e.GetEpoch().Id)
-	text += fmt.Sprintf("%12s", doc.PrintFlags(e))
+
+	text += fmt.Sprintf("%-12s", doc.PrintFlags(e))
 	text += doc.PrintStart(e)
 	if e.GetDuration() != 0 {
 		if e.Relative() || e.EndRelative() {
 			time := jd.JDToTime(e.GetStart() + e.GetDuration())
 			text += doc.PrintEnd(time)
+			text += doc.PrintId(e.GetEpoch().Id)
 			text += doc.PrintTitle(e)
-			text += doc.PrintDuration(e.GetDuration() / JDYear)
+			text += doc.PrintDuration(e.GetDuration())
 		} else {
 			time := jd.JDToTime(e.GetDuration())
 			text += doc.PrintEnd(time)
+			text += doc.PrintId(e.GetEpoch().Id)
 			text += doc.PrintTitle(e)
-			text += doc.PrintDuration((e.GetDuration() - e.GetStart()) / JDYear)
+			text += doc.PrintDuration((e.GetDuration() - e.GetStart()))
 		}
 	} else {
 		if doc.PrintOptions.Time && !doc.PrintOptions.YearOnly {
@@ -161,6 +171,8 @@ func (doc Document) PrintEvent(e Event) string {
 		} else {
 			text += fmt.Sprintf("%10s", "_")
 		}
+		text += doc.PrintId(e.GetEpoch().Id)
+
 		text += doc.PrintTitle(e)
 	}
 	text += doc.PrintGPS(e)

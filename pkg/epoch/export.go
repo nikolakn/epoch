@@ -4,6 +4,7 @@ import (
 	jd "epoch/internal/julian"
 	"fmt"
 	"log"
+	"math"
 	"os"
 )
 
@@ -30,13 +31,18 @@ func (doc *Document) ExportHtml(file string) {
 	for _, e := range doc.Events {
 		start := jd.JDToTime(e.GetStart())
 		end := jd.JDToTime(e.GetDuration())
-		duration := (e.GetDuration() - e.GetStart()) / JDYear
-		iy := int(duration)
-		y_ostatak := 12.0 * float64(duration-float64(iy))
-		d2 := fmt.Sprintf("%.1f y ~(%d y %0.1f m)", duration, iy, y_ostatak)
+		days := math.Abs(e.GetDuration() - e.GetStart())
+		years := days / JDYear
+		months := 12.0 * years
+		d2 := fmt.Sprintf("%.2f years", years)
+		if months < 1 {
+			d2 = fmt.Sprintf("%0.2f days", days)
+		} else if years < 1 {
+			d2 = fmt.Sprintf("%0.2f months", months)
+		}
 
 		if e.Relative() || e.EndRelative() {
-			duration = e.GetDuration() / JDYear
+			duration := e.GetDuration() / JDYear
 			iy := int(duration)
 			y_ostatak := 12.0 * float64(duration-float64(iy))
 			d2 = fmt.Sprintf("%0.2f years ~(%d years and %0.2f months)", duration, iy, y_ostatak)

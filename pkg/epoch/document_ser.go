@@ -84,7 +84,7 @@ func (doc *Document) LoadFromJson(name string) {
 
 	jsonFile, err := os.Open(name)
 	if err != nil {
-		log.Println("error read to file:  ", err)
+		//log.Println("error read to file:  ", err)
 		return
 	}
 	byteValue, _ := io.ReadAll(jsonFile)

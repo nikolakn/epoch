@@ -219,8 +219,8 @@ help
 		}
 
 		if line == "open html" {
-			doc.ExportHtml("/tmp/epoch.html")
-			openbrowser("file:/tmp/epoch.html")
+			doc.ExportHtml(getTempPath())
+			openbrowser("file:"+getTempPath())
 		}
 
 		if line == "importance" || line == "lvl" {
@@ -570,5 +570,17 @@ func openbrowser(url string) {
 	if err != nil {
 		log.Println(err)
 	}
+}
 
+func getTempPath()string {
+	switch runtime.GOOS {
+	case "linux":
+		return "/tmp/epoch.html"
+	case "windows":
+		return os.TempDir() + "/epoch.html"
+	case "darwin":
+		return "/tmp/epoch.html"
+	default:
+		return "/tmp/epoch.html"
+	}
 }

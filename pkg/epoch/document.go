@@ -160,7 +160,7 @@ func (doc *Document) docSort() {
 	}
 }
 
-func (doc *Document) GetEventbuId(id int) Event {
+func (doc *Document) GetEventById(id int) Event {
 	if id < 0 || id > len(doc.Events)-1 {
 		fmt.Println("id out of range")
 		return nil

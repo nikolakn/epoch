@@ -40,6 +40,7 @@ func main() {
 		return
 	}
 	if print_olny {
+		//print document on console and exit
 		doc := epoch.NewDocument(po, file)
 		doc.LoadFromJson(file)
 		fmt.Println(doc)

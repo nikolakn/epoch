@@ -73,6 +73,25 @@ func (doc Document) PrintStart(e Event) string {
 	}
 
 }
+
+func (doc Document) PrintStartClear(e Event) string {
+	time := jd.JDToTime(e.GetStart())
+	if doc.PrintOptions.YearOnly {
+		return fmt.Sprintf("%4d", time.Year())
+
+	} else {
+		if doc.PrintOptions.Time {
+			res := fmt.Sprintf("%d.%d.%d %d:%d", time.Day(), time.Month(), time.Year(), time.Hour(), time.Minute())
+			return fmt.Sprintf("%s", res)
+		} else {
+			res := fmt.Sprintf("%d.%d.%d", time.Day(), time.Month(), time.Year())
+			return fmt.Sprintf("%s", res)
+		}
+
+	}
+
+}
+
 func (doc Document) PrintTitle(e Event) string {
 	return fmt.Sprintf("%-25.22s", e.GetEpoch().Title)
 
@@ -106,6 +125,21 @@ func (doc Document) PrintEnd(end time.Time) string {
 		}
 	}
 }
+
+func (doc Document) PrintEndClear(end time.Time) string {
+	if doc.PrintOptions.YearOnly {
+		return fmt.Sprintf("%4d", end.Year())
+	} else {
+		if doc.PrintOptions.Time {
+			res := fmt.Sprintf("%d.%d.%d %d:%d", end.Day(), end.Month(), end.Year(), end.Hour(), end.Minute())
+			return fmt.Sprintf("%s", res)
+		} else {
+			res := fmt.Sprintf("%d.%d.%d", end.Day(), end.Month(), end.Year())
+			return fmt.Sprintf("%s", res)
+		}
+	}
+}
+
 func (doc Document) PrintGPS(e Event) string {
 	if !doc.PrintOptions.GPS {
 		return ""
@@ -116,6 +150,13 @@ func (doc Document) PrintGPS(e Event) string {
 	}
 	return ""
 }
+func (doc Document) PrintGPSclear(e Event) string {
+	g := e.GetEpoch().GPS
+	if g.Latitude != 0 || g.Longitude != 0 {
+		return fmt.Sprintf("%.4f,%.4f", g.Latitude, g.Longitude)
+	}
+	return ""
+}
 func (doc Document) PrintDescription(e Event) string {
 	if !doc.PrintOptions.Description {
 		return ""
@@ -123,9 +164,12 @@ func (doc Document) PrintDescription(e Event) string {
 	d := e.GetEpoch().Description
 
 	return fmt.Sprintf("\t%s ", d)
-
 }
+func (doc Document) PrintDescriptionClear(e Event) string {
+	d := e.GetEpoch().Description
 
+	return d
+}
 func (doc Document) String() string {
 	text := ""
 	var pre Event

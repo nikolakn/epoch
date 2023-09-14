@@ -37,6 +37,10 @@ func main() {
 		if ext == ".html" {
 			doc.ExportHtml(outFile)
 		}
+		if ext == ".xlsx" {
+			doc.SaveExcel(outFile)
+		}
+
 		return
 	}
 	if print_olny {

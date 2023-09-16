@@ -5,6 +5,9 @@ import (
 	"epoch/pkg/epoch"
 	"fmt"
 	"path/filepath"
+	"runtime"
+	"strconv"
+	"strings"
 
 	cmd "epoch/command"
 )
@@ -38,6 +41,15 @@ func main() {
 			doc.ExportHtml(outFile)
 		}
 		if ext == ".xlsx" {
+
+			arr := strings.Split(runtime.Version(), ".")
+			v1 := strings.TrimPrefix(arr[0], "go")
+			v2, err := strconv.Atoi(arr[1])
+			if err != nil {
+				if v1 == "1" && v2 < 21 {
+					fmt.Println("app must be compiled with go version >=go1.21.1")
+				}
+			}
 			doc.SaveExcel(outFile)
 		}
 

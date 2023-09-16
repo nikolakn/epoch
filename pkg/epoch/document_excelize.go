@@ -11,7 +11,7 @@ func (doc *Document) SaveExcel(name string) {
 	f := excelize.NewFile()
 	defer func() {
 		if err := f.Close(); err != nil {
-			fmt.Println("!!!!!", err)
+			fmt.Println(err)
 		}
 	}()
 	f.SetCellValue("Sheet1", "A1", "Id")
@@ -30,7 +30,7 @@ func (doc *Document) SaveExcel(name string) {
 		doc.PrintRow(event, f, index)
 	}
 	if err := f.SaveAs(name); err != nil {
-		fmt.Println("!!!!!!", err)
+		fmt.Println(err)
 	}
 }
 

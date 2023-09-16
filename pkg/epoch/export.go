@@ -21,9 +21,12 @@ func fileNameStrip(fileName string) string {
 
 func (doc *Document) ExportHtml(file string) {
 	var body string
-	zoomStr := strconv.Itoa(doc.PrintOptions.Zoom)
+	//zoomStr := strconv.Itoa(doc.PrintOptions.Zoom)
 	body += `<div class="container">
-	<h2>Epoch '` + fileNameStrip(doc.FileName) + `' - zoom: ` + zoomStr + `</h2>
+	<h2>Epoch '` + fileNameStrip(doc.FileName) + `</h2>
+	<button  onclick="plus()" type="button">+</button>
+	<button  onclick="minus()"" type="button">-</button>
+
 	<ul class="responsive-table">
 		<li class="table-header">
 		<div class="col col-1">Start</div>
@@ -72,7 +75,7 @@ func (doc *Document) ExportHtml(file string) {
 				dd = fmt.Sprintf("%0.1f months", months)
 			}
 			if raz*50 > 20 {
-				body += "\t\t<div style='align-items: center;justify-content: center;display: flex; height:" + strconv.Itoa(raz*50) + "px'>" + dd + "</div>\n"
+				body += "\t\t<div  class='separator' style='align-items: center;justify-content: center;display: flex; height:" + strconv.Itoa(raz*50) + "px'>" + dd + "</div>\n"
 			}
 		}
 		pre = e
@@ -107,6 +110,32 @@ func (doc *Document) ExportHtml(file string) {
 
 	body += "\t</ul>\n"
 	body += "\t</div>\n"
+	js := `
+
+		function plus() {
+			var elements = document.getElementsByClassName('separator');
+			for (const element of elements) {
+				var h = element.clientHeight
+				console.log(h)
+				element.style.height = (h*2)+"px";
+			}
+		}
+
+		function minus() {
+			var elements = document.getElementsByClassName('separator');
+			for (const element of elements) {
+				var h = element.clientHeight
+				if (h<20) {
+					return
+				}
+			}
+			for (const element of elements) {
+				var h = element.clientHeight
+				console.log(h)
+				element.style.height = (h/2)+"px";
+			}
+		}
+	`
 	html := `
   <!DOCTYPE html>
   <html lang="en">
@@ -115,6 +144,7 @@ func (doc *Document) ExportHtml(file string) {
 	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	  <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	  <title>Epoch</title>
+	  <script>` + js + `</script>
 	  <style>
 	  body {
 		font-family: "lato", sans-serif;

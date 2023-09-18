@@ -23,7 +23,7 @@ func (doc *Document) ExportHtml(file string) {
 	var body string
 	//zoomStr := strconv.Itoa(doc.PrintOptions.Zoom)
 	body += `<div class="container">
-	<h2>Epoch '` + fileNameStrip(doc.FileName) + `</h2>
+	<h2>Epoch '` + fileNameStrip(doc.FileName) + `'</h2>
 	<button  onclick="plus()" type="button">+</button>
 	<button  onclick="minus()"" type="button">-</button>
 

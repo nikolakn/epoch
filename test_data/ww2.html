@@ -1,0 +1,365 @@
+
+  <!DOCTYPE html>
+  <html lang="en">
+	<head>
+	  <meta charset="UTF-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	  <title>Epoch</title>
+	  <script>
+
+		function plus() {
+			var elements = document.getElementsByClassName('separator');
+			for (const element of elements) {
+				var h = element.clientHeight
+				console.log(h)
+				element.style.height = (h*2)+"px";
+			}
+		}
+
+		function minus() {
+			var elements = document.getElementsByClassName('separator');
+			for (const element of elements) {
+				var h = element.clientHeight
+				if (h<20) {
+					return
+				}
+			}
+			for (const element of elements) {
+				var h = element.clientHeight
+				console.log(h)
+				element.style.height = (h/2)+"px";
+			}
+		}
+	</script>
+	  <style>
+	  body {
+		font-family: "lato", sans-serif;
+	  }
+	  
+	  .container {
+		max-width: 90%;
+		margin-left: auto;
+		margin-right: auto;
+		padding-left: 10px;
+		padding-right: 10px;
+	  }
+	  
+	  h2 {
+		font-size: 26px;
+		margin: 20px 0;
+		text-align: center;
+	  }
+	  h2 small {
+		font-size: 0.5em;
+	  }
+	  
+	  .responsive-table li {
+		border-radius: 4px;
+		padding: 16px 16px;
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 16px;
+		font-size: 12px;
+	  }
+	  .responsive-table .table-header {
+		background-color: #95a5a6;
+		font-size: 14px;
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+	  }
+	  .responsive-table .table-row {
+		background-color: #ffffff;
+		box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+	  }
+	  .responsive-table .col-1 {
+		flex-basis: 10%;
+	  }
+	  .responsive-table .col-2 {
+		flex-basis: 10%;
+	  }
+	  .responsive-table .col-3 {
+		flex-basis: 15%;
+	  }
+	  .responsive-table .col-4 {
+		flex-basis: 20%;
+	  }
+	  .responsive-table .col-5 {
+		flex-basis:35%;
+	  }
+	  .responsive-table .col-6 {
+		flex-basis: 5%;
+	  }
+	  .responsive-table .col-7 {
+		flex-basis: 5%;
+	  }
+	  @media all and (max-width: 767px) {
+		.responsive-table .table-header {
+		  display: none;
+		}
+		.responsive-table li {
+		  display: block;
+		}
+		.responsive-table .col {
+		  flex-basis: 100%;
+		}
+		.responsive-table .col {
+		  display: flex;
+		  padding: 5px 0;
+		}
+		.responsive-table .col:before {
+		  color: #6c7a89;
+		  padding-right: 10px;
+		  content: attr(data-label);
+		  flex-basis: 20%;
+		  text-align: left;
+		}
+	  }
+	  </style>
+	</head>
+
+	<body>
+	<div class="container">
+	<h2>Epoch 'ww2</h2>
+	<button  onclick="plus()" type="button">+</button>
+	<button  onclick="minus()"" type="button">-</button>
+
+	<ul class="responsive-table">
+		<li class="table-header">
+		<div class="col col-1">Start</div>
+		<div class="col col-2">End</div>
+		<div class="col col-3">Duration</div>
+		<div class="col col-4">Name</div>
+		<div class="col col-5">Description</div>
+		<div class="col col-6">Url</div>
+		<div class="col col-7">Map</div>
+		</li>
+
+		 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 1.9.1939</div>
+		<div class='col col-2' data-label='End'> 2.9.1945</div>
+		<div class='col col-3' data-label='Duration'>6.00 years</div>
+		<div class='col col-4' data-label='Name'>WWII</div>
+		<div class='col col-5' data-label='Description'></div>
+		<div class='col col-6' data-label='Url'><a target='_blank' rel='noopener' href='https://en.wikipedia.org/wiki/World_War_II'>link</a></div>
+		<div class='col col-7' data-label='Map'></div>
+	</li>
+	 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 27.9.1939</div>
+		<div class='col col-2' data-label='End'></div>
+		<div class='col col-3' data-label='Duration'></div>
+		<div class='col col-4' data-label='Name'>WARSAW CAPTURED</div>
+		<div class='col col-5' data-label='Description'></div>
+		<div class='col col-6' data-label='Url'></div>
+		<div class='col col-7' data-label='Map'></div>
+	</li>
+		<div  class='separator' style='align-items: center;justify-content: center;display: flex; height:300px'>6.4 months</div>
+	 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 8.4.1940</div>
+		<div class='col col-2' data-label='End'></div>
+		<div class='col col-3' data-label='Duration'></div>
+		<div class='col col-4' data-label='Name'>NORWAY INVADED</div>
+		<div class='col col-5' data-label='Description'></div>
+		<div class='col col-6' data-label='Url'></div>
+		<div class='col col-7' data-label='Map'></div>
+	</li>
+		<div  class='separator' style='align-items: center;justify-content: center;display: flex; height:100px'>2.1 months</div>
+	 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 10.6.1940</div>
+		<div class='col col-2' data-label='End'></div>
+		<div class='col col-3' data-label='Duration'></div>
+		<div class='col col-4' data-label='Name'>Italy enters the war</div>
+		<div class='col col-5' data-label='Description'>Italy invades southern France on June 21.</div>
+		<div class='col col-6' data-label='Url'></div>
+		<div class='col col-7' data-label='Map'></div>
+	</li>
+		<div  class='separator' style='align-items: center;justify-content: center;display: flex; height:500px'>9.9 months</div>
+	 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 6.4.1941</div>
+		<div class='col col-2' data-label='End'> 10.6.1941</div>
+		<div class='col col-3' data-label='Duration'>2.14 months</div>
+		<div class='col col-4' data-label='Name'>Germany, Italy, and Hungary invade Yugoslavia</div>
+		<div class='col col-5' data-label='Description'>Germany, Italy, and Hungary invade Yugoslavia and, together with Bulgaria, dismember it. Yugoslavia surrenders on April 17. Germany and Bulgaria invade Greece in support of the Italians. Resistance in Greece ceases in early June 1941.</div>
+		<div class='col col-6' data-label='Url'></div>
+		<div class='col col-7' data-label='Map'></div>
+	</li>
+		<div  class='separator' style='align-items: center;justify-content: center;display: flex; height:100px'>2.5 months</div>
+	 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 22.6.1941</div>
+		<div class='col col-2' data-label='End'> 7.1.1942</div>
+		<div class='col col-3' data-label='Duration'>6.55 months</div>
+		<div class='col col-4' data-label='Name'>Operation Barbarossa</div>
+		<div class='col col-5' data-label='Description'></div>
+		<div class='col col-6' data-label='Url'><a target='_blank' rel='noopener' href='https://en.wikipedia.org/wiki/Operation_Barbarossa'>link</a></div>
+		<div class='col col-7' data-label='Map'></div>
+	</li>
+		<div  class='separator' style='align-items: center;justify-content: center;display: flex; height:100px'>2.6 months</div>
+	 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 9.9.1941</div>
+		<div class='col col-2' data-label='End'></div>
+		<div class='col col-3' data-label='Duration'></div>
+		<div class='col col-4' data-label='Name'>Siege of Leningrad</div>
+		<div class='col col-5' data-label='Description'></div>
+		<div class='col col-6' data-label='Url'></div>
+		<div class='col col-7' data-label='Map'><a target='_blank' rel='noopener' href='https://www.osmap.uk/#10/59.931600/30.121800'>map</a></div>
+	</li>
+	 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 30.9.1941</div>
+		<div class='col col-2' data-label='End'></div>
+		<div class='col col-3' data-label='Duration'></div>
+		<div class='col col-4' data-label='Name'>Operation Typhoon</div>
+		<div class='col col-5' data-label='Description'></div>
+		<div class='col col-6' data-label='Url'></div>
+		<div class='col col-7' data-label='Map'></div>
+	</li>
+		<div  class='separator' style='align-items: center;justify-content: center;display: flex; height:100px'>2.2 months</div>
+	 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 7.12.1941</div>
+		<div class='col col-2' data-label='End'> 2.9.1945</div>
+		<div class='col col-3' data-label='Duration'>3.74 years</div>
+		<div class='col col-4' data-label='Name'>Pacific War</div>
+		<div class='col col-5' data-label='Description'>The Pacific War, sometimes called the Asia–Pacific War,[44] was the theater of World War II that was fought in eastern Asia, the Pacific Ocean, the Indian Ocean, and Oceania. It was geographically the largest theater of the war, including the vast Pacific Ocean theater, the South West Pacific theater, the Second Sino-Japanese War, and the Soviet–Japanese War.</div>
+		<div class='col col-6' data-label='Url'><a target='_blank' rel='noopener' href='https://en.wikipedia.org/wiki/Pacific_War'>link</a></div>
+		<div class='col col-7' data-label='Map'></div>
+	</li>
+	 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 7.12.1941</div>
+		<div class='col col-2' data-label='End'></div>
+		<div class='col col-3' data-label='Duration'></div>
+		<div class='col col-4' data-label='Name'>Attack on Pearl Harbor</div>
+		<div class='col col-5' data-label='Description'>The attack on Pearl Harbor[nb 3][11] was a surprise military strike by the Imperial Japanese Navy Air Service upon the United States against the U.S. naval base at Pearl Harbor in Honolulu, Hawaii, just before 8:00 a.m. (local time) on Sunday, December 7, 1941. The United States was a neutral country at the time; the attack led to its formal entry into World War II on the side of the Allies the next day. The Japanese military leadership referred to the attack as the Hawaii Operation and Operation AI,[12][nb 4] and as Operation Z during its planning.</div>
+		<div class='col col-6' data-label='Url'><a target='_blank' rel='noopener' href='https://en.wikipedia.org/wiki/Attack_on_Pearl_Harbor'>link</a></div>
+		<div class='col col-7' data-label='Map'><a target='_blank' rel='noopener' href='https://www.osmap.uk/#10/21.309200/-157.917500'>map</a></div>
+	</li>
+		<div  class='separator' style='align-items: center;justify-content: center;display: flex; height:400px'>8.5 months</div>
+	 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 22.8.1942</div>
+		<div class='col col-2' data-label='End'> 2.2.1943</div>
+		<div class='col col-3' data-label='Duration'>5.39 months</div>
+		<div class='col col-4' data-label='Name'>Battle of Stalingrad</div>
+		<div class='col col-5' data-label='Description'></div>
+		<div class='col col-6' data-label='Url'></div>
+		<div class='col col-7' data-label='Map'></div>
+	</li>
+		<div  class='separator' style='align-items: center;justify-content: center;display: flex; height:100px'>2.9 months</div>
+	 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 19.11.1942</div>
+		<div class='col col-2' data-label='End'></div>
+		<div class='col col-3' data-label='Duration'></div>
+		<div class='col col-4' data-label='Name'>Stalingrad counter-offensives</div>
+		<div class='col col-5' data-label='Description'></div>
+		<div class='col col-6' data-label='Url'></div>
+		<div class='col col-7' data-label='Map'></div>
+	</li>
+		<div  class='separator' style='align-items: center;justify-content: center;display: flex; height:550px'>11.6 months</div>
+	 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 6.11.1943</div>
+		<div class='col col-2' data-label='End'></div>
+		<div class='col col-3' data-label='Duration'></div>
+		<div class='col col-4' data-label='Name'>Soviet troops liberate Kiev.</div>
+		<div class='col col-5' data-label='Description'></div>
+		<div class='col col-6' data-label='Url'></div>
+		<div class='col col-7' data-label='Map'></div>
+	</li>
+		<div  class='separator' style='align-items: center;justify-content: center;display: flex; height:100px'>2.4 months</div>
+	 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 17.1.1944</div>
+		<div class='col col-2' data-label='End'> 18.5.1944</div>
+		<div class='col col-3' data-label='Duration'>4.01 months</div>
+		<div class='col col-4' data-label='Name'>Battle of Monte Cassino</div>
+		<div class='col col-5' data-label='Description'>The Battle of Monte Cassino, also known as the Battle for Rome, was a series of four military assaults by the Allies against German forces in Italy during the Italian Campaign of World War II. The objective was to break through the Winter Line and facilitate an advance towards Rome.</div>
+		<div class='col col-6' data-label='Url'><a target='_blank' rel='noopener' href='https://en.wikipedia.org/wiki/Battle_of_Monte_Cassino'>link</a></div>
+		<div class='col col-7' data-label='Map'><a target='_blank' rel='noopener' href='https://www.osmap.uk/#10/41.483300/13.816700'>map</a></div>
+	</li>
+		<div  class='separator' style='align-items: center;justify-content: center;display: flex; height:200px'>4.6 months</div>
+	 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 6.6.1944</div>
+		<div class='col col-2' data-label='End'></div>
+		<div class='col col-3' data-label='Duration'></div>
+		<div class='col col-4' data-label='Name'>D-day</div>
+		<div class='col col-5' data-label='Description'> British, US, and Canadian troops successfully land on the Normandy beaches of France, opening a “Second Front” against the Germans.</div>
+		<div class='col col-6' data-label='Url'><a target='_blank' rel='noopener' href='https://en.wikipedia.org/wiki/Normandy_landings'>link</a></div>
+		<div class='col col-7' data-label='Map'><a target='_blank' rel='noopener' href='https://www.osmap.uk/#10/49.443600/-0.477900'>map</a></div>
+	</li>
+	 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 22.6.1944</div>
+		<div class='col col-2' data-label='End'> 19.8.1944</div>
+		<div class='col col-3' data-label='Duration'>1.91 months</div>
+		<div class='col col-4' data-label='Name'>Operation Bagration</div>
+		<div class='col col-5' data-label='Description'></div>
+		<div class='col col-6' data-label='Url'></div>
+		<div class='col col-7' data-label='Map'></div>
+	</li>
+	 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 25.6.1944</div>
+		<div class='col col-2' data-label='End'></div>
+		<div class='col col-3' data-label='Duration'></div>
+		<div class='col col-4' data-label='Name'>Allied forces break out of the Normandy beachhead </div>
+		<div class='col col-5' data-label='Description'></div>
+		<div class='col col-6' data-label='Url'></div>
+		<div class='col col-7' data-label='Map'></div>
+	</li>
+		<div  class='separator' style='align-items: center;justify-content: center;display: flex; height:100px'>2.3 months</div>
+	 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 4.9.1944</div>
+		<div class='col col-2' data-label='End'></div>
+		<div class='col col-3' data-label='Duration'></div>
+		<div class='col col-4' data-label='Name'>Finland agrees to sign an armistice with the Soviet Union</div>
+		<div class='col col-5' data-label='Description'></div>
+		<div class='col col-6' data-label='Url'></div>
+		<div class='col col-7' data-label='Map'></div>
+	</li>
+		<div  class='separator' style='align-items: center;justify-content: center;display: flex; height:150px'>3.4 months</div>
+	 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 16.12.1944</div>
+		<div class='col col-2' data-label='End'></div>
+		<div class='col col-3' data-label='Duration'></div>
+		<div class='col col-4' data-label='Name'>Battle of the Bulge start</div>
+		<div class='col col-5' data-label='Description'></div>
+		<div class='col col-6' data-label='Url'></div>
+		<div class='col col-7' data-label='Map'></div>
+	</li>
+		<div  class='separator' style='align-items: center;justify-content: center;display: flex; height:150px'>3.9 months</div>
+	 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 13.4.1945</div>
+		<div class='col col-2' data-label='End'></div>
+		<div class='col col-3' data-label='Duration'></div>
+		<div class='col col-4' data-label='Name'>Soviet forces capture Vienna</div>
+		<div class='col col-5' data-label='Description'></div>
+		<div class='col col-6' data-label='Url'></div>
+		<div class='col col-7' data-label='Map'></div>
+	</li>
+	 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 16.4.1945</div>
+		<div class='col col-2' data-label='End'> 2.5.1945</div>
+		<div class='col col-3' data-label='Duration'>16.00 days</div>
+		<div class='col col-4' data-label='Name'>Battle of Berlin</div>
+		<div class='col col-5' data-label='Description'>he Battle of Berlin, designated as the Berlin Strategic Offensive Operation by the Soviet Union, and also known as the Fall of Berlin, was one of the last major offensives of the European theatre of World War II.[f]</div>
+		<div class='col col-6' data-label='Url'><a target='_blank' rel='noopener' href='https://en.wikipedia.org/wiki/Battle_of_Berlin'>link</a></div>
+		<div class='col col-7' data-label='Map'><a target='_blank' rel='noopener' href='https://www.osmap.uk/#10/52.474800/13.462400'>map</a></div>
+	</li>
+	 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 30.4.1945</div>
+		<div class='col col-2' data-label='End'></div>
+		<div class='col col-3' data-label='Duration'></div>
+		<div class='col col-4' data-label='Name'>Hitler commits suicide</div>
+		<div class='col col-5' data-label='Description'></div>
+		<div class='col col-6' data-label='Url'></div>
+		<div class='col col-7' data-label='Map'></div>
+	</li>
+		<div  class='separator' style='align-items: center;justify-content: center;display: flex; height:150px'>3.2 months</div>
+	 <li class='table-row'>
+		<div class='col col-1' data-label='Start'> 6.8.1945</div>
+		<div class='col col-2' data-label='End'></div>
+		<div class='col col-3' data-label='Duration'></div>
+		<div class='col col-4' data-label='Name'>Atomic bombings of Hiroshima and Nagasaki</div>
+		<div class='col col-5' data-label='Description'>On 6 and 9 August 1945, the United States detonated two atomic bombs over the Japanese cities of Hiroshima and Nagasaki. The bombings killed between 129,000 and 226,000 people, most of whom were civilians, and remain the only use of nuclear weapons in an armed conflict.</div>
+		<div class='col col-6' data-label='Url'><a target='_blank' rel='noopener' href='https://en.wikipedia.org/wiki/Atomic_bombings_of_Hiroshima_and_Nagasaki'>link</a></div>
+		<div class='col col-7' data-label='Map'><a target='_blank' rel='noopener' href='https://www.osmap.uk/#10/34.314500/132.534900'>map</a></div>
+	</li>
+	</ul>
+	</div>
+
+	</body>
+  </html>
+  
